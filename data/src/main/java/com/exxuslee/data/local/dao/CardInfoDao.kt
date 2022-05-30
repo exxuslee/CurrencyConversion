@@ -16,8 +16,8 @@ interface PriceDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun savePrice(Price: PriceEntity)
 
-    @Query("SELECT * FROM card_info_table WHERE unique_id=:id LIMIT 1")
-    suspend fun getPrice(id: Int): PriceEntity?
+    @Query("SELECT * FROM card_info_table WHERE base=:base LIMIT 1")
+    suspend fun getPrice(base: String): PriceEntity?
 
     @Query("DELETE FROM card_info_table")
     suspend fun deleteAllPrice()

@@ -6,8 +6,9 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 
 interface PriceApiService {
-
-    @GET("{cardNumber}")
-    suspend fun getPrice(@Path("cardNumber") cardNumber: Int): Response<PriceResponse>
-
+    @GET("symbols={symbols}&base={base}")
+    suspend fun getPrice(
+        @Path("symbols") symbols: String,
+        @Path("base") base: String,
+    ): Response<PriceResponse>
 }

@@ -1,6 +1,9 @@
 package com.exxuslee.data.repositories
 
 import com.exxuslee.data.local.dao.PriceDao
+import com.exxuslee.data.local.entities.PriceEntity
+import com.exxuslee.data.mapper.PriceMapperLocal
+import com.exxuslee.data.mapper.PriceMapperRemote
 import com.exxuslee.data.remote.api.PriceApiService
 import com.exxuslee.domain.models.Price
 import com.exxuslee.domain.repositories.PriceRepository
@@ -8,24 +11,22 @@ import com.exxuslee.domain.utils.Result
 
 class PriceRepositoryImpl(
     private val PriceApi: PriceApiService,
-    private val PriceDao: PriceDao
+    private val PriceDao: PriceDao,
 ) : PriceRepository {
 
-    override suspend fun getPrice(getFromRemote: Boolean): Result<Price> {
+    override suspend fun getPrice(base:String, symbols:String, getFromRemote: Boolean): Result<Price> {
         return when {
             getFromRemote -> {
-                val PriceResult = PriceApi.getPrice(cardNumber)
-                if (PriceResult.isSuccessful) {
+                val priceResult = PriceApi.getPrice(base = base, symbols = symbols)
+                if (priceResult.isSuccessful) {
                     val mapperRemote = PriceMapperRemote()
-                    val remoteData = PriceResult.body()
+                    val remoteData = priceResult.body()
                     if (remoteData != null) {
                         PriceDao.savePrice(
                             PriceEntity(
-                                id = cardNumber,
-                                bank = remoteData.bank,
-                                brand = remoteData.brand,
-                                country = remoteData.country,
-                                type = remoteData.type
+                                base = remoteData.base,
+                                date = remoteData.date,
+                                rate = remoteData.rate
                             )
                         )
                         Result.Success(mapperRemote.transform(remoteData))
@@ -37,7 +38,7 @@ class PriceRepositoryImpl(
                 }
             }
             else -> {
-                val localData = PriceDao.getPrice(cardNumber)
+                val localData = PriceDao.getPrice(base)
                 if (localData == null) {
                     Result.Success(null)
                 } else {

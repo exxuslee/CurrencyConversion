@@ -1,8 +1,6 @@
 package com.exxuslee.data.mapper
 
-import com.exxuslee.data.remote.response.Bank
 import com.exxuslee.data.remote.response.PriceResponse
-import com.exxuslee.data.remote.response.Country
 import com.exxuslee.domain.models.Price
 
 
@@ -12,10 +10,10 @@ import com.exxuslee.domain.models.Price
 
 class PriceMapperRemote : BaseMapperRepository<PriceResponse, Price> {
     override fun transform(type: PriceResponse): Price = Price(
-        type.bank?.name ?: "", type.brand ?: "", type.country?.name ?: "", type.type ?: ""
+        type.base ?: "", type.date ?: "", type.rate
     )
 
     override fun transformToRepository(type: Price): PriceResponse = PriceResponse(
-        bank = Bank(type.bank), brand = type.brand, country = Country(type.country)
+        base = type.base, date = type.date, rate = type.rates
     )
 }

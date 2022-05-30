@@ -5,8 +5,7 @@ package com.exxuslee.domain.models
  */
 
 data class Price(
-    val bank: String,
-    val brand: String,
-    val country: String,
-    val type: Pair<String, Double>
+    val base: String,
+    val date: String,
+    val rates: Map<String, Double>
 )
