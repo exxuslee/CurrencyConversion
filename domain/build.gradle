@@ -1,9 +1,14 @@
-plugins {
-    id 'java-library'
-    id 'org.jetbrains.kotlin.jvm'
-}
+apply plugin: 'java-library'
+apply plugin: 'kotlin'
 
 java {
     sourceCompatibility = JavaVersion.VERSION_1_7
     targetCompatibility = JavaVersion.VERSION_1_7
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:1.6.21"
+    implementation "org.koin:koin-android:2.1.5"
+    implementation "org.koin:koin-androidx-scope:2.1.5"
 }
