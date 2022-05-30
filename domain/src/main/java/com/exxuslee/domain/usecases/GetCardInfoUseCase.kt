@@ -1,4 +1,4 @@
-package com.mayokunadeniyi.domain.usecases
+package com.exxuslee.domain.usecases
 
 
 import com.exxuslee.domain.models.Price
@@ -8,5 +8,5 @@ import com.exxuslee.domain.models.Price
  */
 
 interface GetCardInfoUseCase {
-    suspend operator fun invoke(param: Int, getFromRemote: Boolean): Result<Price>
+    suspend operator fun invoke(getFromRemote: Boolean): Result<Price>
 }

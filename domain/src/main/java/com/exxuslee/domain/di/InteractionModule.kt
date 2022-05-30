@@ -1,7 +1,7 @@
 package com.exxuslee.domain.di
 
-import com.mayokunadeniyi.domain.usecases.GetCardInfoUseCase
-import com.mayokunadeniyi.domain.usecases.GetCardInfoUseCaseImpl
+import com.exxuslee.domain.usecases.GetCardInfoUseCase
+import com.exxuslee.domain.usecases.GetCardInfoUseCaseImpl
 import org.koin.dsl.module
 
 /**
