@@ -17,13 +17,13 @@ class CardInfoUseCaseTest {
     // region helper fields
     @Mock
     private lateinit var cardInfoRepository: PriceRepository
-    private lateinit var getCardInfo: GetCardInfoUseCaseImpl
+    private lateinit var getCardInfo: GetCardInfoUseCase.Base
     private val getFromRemote: Boolean = false
     // endregion helper fields
 
     @Before
     fun setUp(){
-        getCardInfo = GetCardInfoUseCaseImpl(cardInfoRepository)
+        getCardInfo = GetCardInfoUseCase.Base(cardInfoRepository)
     }
 
     @Test
