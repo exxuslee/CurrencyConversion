@@ -1,6 +1,6 @@
 package com.exxuslee.domain.di
 
-import com.exxuslee.domain.usecases.GetCardInfoUseCase
+import com.exxuslee.domain.usecases.GetPriceUseCase
 import org.koin.dsl.module
 
 /**
@@ -8,5 +8,5 @@ import org.koin.dsl.module
  */
 
 val interactionModule = module {
-    factory<GetCardInfoUseCase> { GetCardInfoUseCase.Base(get()) }
+    factory<GetPriceUseCase> { GetPriceUseCase.Base(get()) }
 }

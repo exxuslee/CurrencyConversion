@@ -8,5 +8,6 @@ data class Price(
     val bank: String,
     val brand: String,
     val country: String,
-    val type: List<Pair<String, Double>>,
+    val type: Pair<String, String>
+   // val type: List<Pair<String, String>>,
 )

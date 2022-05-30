@@ -2,11 +2,6 @@ package com.exxuslee.domain.utils
 
 import java.lang.Exception
 
-
-/**
- * Created by Mayokun Adeniyi on 22/07/2020.
- */
-
 /**
  * A generic class that holds a value with its loading status.
  * @param <T>

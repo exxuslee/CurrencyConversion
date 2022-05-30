@@ -12,25 +12,25 @@ import org.mockito.junit.MockitoJUnitRunner
 
 @ExperimentalCoroutinesApi
 @RunWith(MockitoJUnitRunner::class)
-class CardInfoUseCaseTest {
+class PriceUseCaseTest {
 
     // region helper fields
     @Mock
-    private lateinit var cardInfoRepository: PriceRepository
-    private lateinit var getCardInfo: GetCardInfoUseCase.Base
+    private lateinit var PriceRepository: PriceRepository
+    private lateinit var getPrice: GetPriceUseCase.Base
     private val getFromRemote: Boolean = false
     // endregion helper fields
 
     @Before
     fun setUp(){
-        getCardInfo = GetCardInfoUseCase.Base(cardInfoRepository)
+        getPrice = GetPriceUseCase.Base(PriceRepository)
     }
 
     @Test
-    fun getCardInfoUseCase_calls_cardInfoRepository(){
+    fun getPriceUseCase_calls_PriceRepository(){
         runBlockingTest {
-            getCardInfo(getFromRemote)
-            Mockito.verify(cardInfoRepository).getPrice(getFromRemote)
+            getPrice(getFromRemote)
+            Mockito.verify(PriceRepository).getPrice(getFromRemote)
         }
     }
 }
