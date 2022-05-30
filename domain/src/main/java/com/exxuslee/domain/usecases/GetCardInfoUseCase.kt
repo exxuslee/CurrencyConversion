@@ -2,10 +2,8 @@ package com.exxuslee.domain.usecases
 
 
 import com.exxuslee.domain.models.Price
+import com.exxuslee.domain.utils.Result
 
-/**
- * Created by Mayokun Adeniyi on 22/07/2020.
- */
 
 interface GetCardInfoUseCase {
     suspend operator fun invoke(getFromRemote: Boolean): Result<Price>
