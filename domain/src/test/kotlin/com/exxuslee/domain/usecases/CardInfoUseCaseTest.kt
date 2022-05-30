@@ -10,10 +10,6 @@ import org.mockito.Mock
 import org.mockito.Mockito
 import org.mockito.junit.MockitoJUnitRunner
 
-/**
- * Created by Mayokun Adeniyi on 24/07/2020.
- */
-
 @ExperimentalCoroutinesApi
 @RunWith(MockitoJUnitRunner::class)
 class CardInfoUseCaseTest {
