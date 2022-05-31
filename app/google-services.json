@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "53412015486",
+    "project_id": "hotcold",
+    "storage_bucket": "hotcold.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:53412015486:android:de1c262733098877e8d72f",
+        "android_client_info": {
+          "package_name": "com.exxuslee.currencyconversion"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "53412015486-9a3tv8qrdc9ovq1crkjt1ggbal1b1slj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.exxuslee.currencyconversion",
+            "certificate_hash": "d291cba57e0d6ff050382c0e06853400317816b8"
+          }
+        },
+        {
+          "client_id": "53412015486-tmn49aalavhrmorf1css602gvgin3a2h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD3_C6xyWDkQ__ldVhW4v2m7AzbPGSKtLg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "53412015486-tmn49aalavhrmorf1css602gvgin3a2h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
