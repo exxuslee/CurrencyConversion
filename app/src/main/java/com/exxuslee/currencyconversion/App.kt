@@ -6,6 +6,7 @@ import com.exxuslee.data.di.databaseModule
 import com.exxuslee.data.di.networkingModule
 import com.exxuslee.data.di.repositoryModule
 import com.exxuslee.domain.di.interactionModule
+import com.google.firebase.FirebaseApp
 import org.koin.android.BuildConfig
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
