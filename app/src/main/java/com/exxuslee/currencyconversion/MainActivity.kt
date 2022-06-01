@@ -1,4 +1,4 @@
-package com.exxuslee.currencyconversion.ui
+package com.exxuslee.currencyconversion
 
 import android.os.Bundle
 import com.google.android.material.snackbar.Snackbar
