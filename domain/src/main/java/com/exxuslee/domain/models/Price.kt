@@ -7,5 +7,5 @@ package com.exxuslee.domain.models
 data class Price(
     val base: String,
     val date: String,
-    val rates: Map<String, Double>
+//    val rates: Map<String, Double>
 )

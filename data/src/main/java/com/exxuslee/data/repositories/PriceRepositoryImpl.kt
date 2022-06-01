@@ -25,8 +25,7 @@ class PriceRepositoryImpl(
                         PriceDao.savePrice(
                             PriceEntity(
                                 base = remoteData.base,
-                                date = remoteData.date,
-                                rate = remoteData.rate
+                                date = remoteData.date
                             )
                         )
                         Result.Success(mapperRemote.transform(remoteData))

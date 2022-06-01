@@ -10,10 +10,10 @@ import com.exxuslee.domain.models.Price
 
 class PriceMapperRemote : BaseMapperRepository<PriceResponse, Price> {
     override fun transform(type: PriceResponse): Price = Price(
-        type.base ?: "", type.date ?: "", type.rate
+        type.base ?: "", type.date ?: ""
     )
 
     override fun transformToRepository(type: Price): PriceResponse = PriceResponse(
-        base = type.base, date = type.date, rate = type.rates
+        base = type.base, date = type.date
     )
 }
