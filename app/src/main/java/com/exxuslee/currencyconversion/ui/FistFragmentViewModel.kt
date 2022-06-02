@@ -21,7 +21,7 @@ class FistFragmentViewModel(private val getCardInfoUseCase: GetPriceUseCase.Base
     private val _dataFetchState = MutableLiveData<Boolean>()
     val dataFetchState = _dataFetchState.asLiveData()
 
-    fun getRemoteCardInfo(cardNumber: Int) {
+    fun getRemoteCardInfo() {
         _isLoading.postValue(true)
         viewModelScope.launch {
             when (val result =
@@ -45,20 +45,21 @@ class FistFragmentViewModel(private val getCardInfoUseCase: GetPriceUseCase.Base
         }
     }
 
-    fun getLocalCardInfo(cardNumber: Int) {
+    fun getLocalCardInfo() {
         _isLoading.postValue(true)
         viewModelScope.launch {
             when (val result =
-                withContext(Dispatchers.IO) { getCardInfoUseCase("EUR", "", true) }) {
+                withContext(Dispatchers.IO) { getCardInfoUseCase("EUR", "", false) }) {
                 is Result.Success -> {
                     _isLoading.postValue(false)
                     if (result.data != null) {
                         _dataFetchState.postValue(true)
                         _price.postValue(result.data)
                     } else {
-                        getRemoteCardInfo(cardNumber)
+                        getRemoteCardInfo()
                     }
                 }
+                else -> {}
             }
         }
     }
