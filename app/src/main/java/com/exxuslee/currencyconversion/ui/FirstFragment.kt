@@ -5,10 +5,13 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.OnBackPressedCallback
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.exxuslee.currencyconversion.R
 import com.exxuslee.currencyconversion.databinding.FragmentFirstBinding
+import com.exxuslee.currencyconversion.utils.showIf
+import com.google.android.material.snackbar.Snackbar
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -16,16 +19,14 @@ import com.exxuslee.currencyconversion.databinding.FragmentFirstBinding
 class FirstFragment : Fragment() {
 
     private var _binding: FragmentFirstBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
+    private val viewModel: FistFragmentViewModel by viewModel()
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?,
     ): View? {
 
+     //   viewModel.getLocalCardInfo()
         _binding = FragmentFirstBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -36,6 +37,18 @@ class FirstFragment : Fragment() {
         binding.buttonFirst.setOnClickListener {
             findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
         }
+
+        viewModel.isLoading.observe(viewLifecycleOwner, Observer { state ->
+            binding.progressBar.showIf { state }
+        })
+
+        viewModel.dataFetchState.observe(viewLifecycleOwner, Observer { state ->
+            if (!state){
+                binding.errorText.visibility = View.VISIBLE
+                Snackbar.make(requireView(),"Oops! An error occured, check your connection and retry!",
+                    Snackbar.LENGTH_LONG).show()
+            }
+        })
     }
 
     override fun onDestroyView() {
