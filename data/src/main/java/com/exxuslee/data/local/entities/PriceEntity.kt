@@ -12,9 +12,8 @@ import com.exxuslee.data.utils.Constants.PRICE_TABLE_NAME
 @Entity(tableName = PRICE_TABLE_NAME)
 data class PriceEntity(
 
-    @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "id") val id: Int = 0,
-    @ColumnInfo(name = "base") val base: String? = "",
-    @ColumnInfo(name = "date") val date: String? = "",
-    @ColumnInfo(name = "rate") val rate: Map<String, Double> = mapOf(Pair("", 0.0)),
+    @PrimaryKey(autoGenerate = true) val id: Int = 0,
+    val base: String = "",
+    val date: String = "",
+    //val rate: Map<String, Double> = mapOf(Pair("", 0.0)),
 )
