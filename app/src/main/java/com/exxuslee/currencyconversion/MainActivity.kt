@@ -10,6 +10,7 @@ import androidx.navigation.ui.navigateUp
 import androidx.navigation.ui.setupActionBarWithNavController
 import android.view.Menu
 import android.view.MenuItem
+import com.exxuslee.currencyconversion.R
 import com.exxuslee.currencyconversion.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
