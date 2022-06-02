@@ -1,0 +1,65 @@
+package com.exxuslee.currencyconversion.ui
+
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.exxuslee.currencyconversion.utils.asLiveData
+import com.exxuslee.domain.models.Price
+import com.exxuslee.domain.usecases.GetPriceUseCase
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import com.exxuslee.domain.utils.Result
+
+class FistFragmentViewModel(private val getCardInfoUseCase: GetPriceUseCase.Base) : ViewModel() {
+    private val _price = MutableLiveData<Price?>()
+    val price = _price.asLiveData()
+
+    private val _isLoading = MutableLiveData<Boolean>()
+    val isLoading = _isLoading.asLiveData()
+
+    private val _dataFetchState = MutableLiveData<Boolean>()
+    val dataFetchState = _dataFetchState.asLiveData()
+
+    fun getRemoteCardInfo(cardNumber: Int) {
+        _isLoading.postValue(true)
+        viewModelScope.launch {
+            when (val result =
+                withContext(Dispatchers.IO) { getCardInfoUseCase("EUR", "", true) }) {
+                is Result.Success -> {
+                    _isLoading.postValue(false)
+                    if (result.data != null) {
+                        _dataFetchState.postValue(true)
+                        _price.postValue(result.data)
+                    } else {
+                        _dataFetchState.postValue(false)
+                    }
+                }
+
+                is Result.Error -> {
+                    _isLoading.postValue(false)
+                    _dataFetchState.postValue(false)
+                }
+                else -> {}
+            }
+        }
+    }
+
+    fun getLocalCardInfo(cardNumber: Int) {
+        _isLoading.postValue(true)
+        viewModelScope.launch {
+            when (val result =
+                withContext(Dispatchers.IO) { getCardInfoUseCase("EUR", "", true) }) {
+                is Result.Success -> {
+                    _isLoading.postValue(false)
+                    if (result.data != null) {
+                        _dataFetchState.postValue(true)
+                        _price.postValue(result.data)
+                    } else {
+                        getRemoteCardInfo(cardNumber)
+                    }
+                }
+            }
+        }
+    }
+}
