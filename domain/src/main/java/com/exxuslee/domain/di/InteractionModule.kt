@@ -8,5 +8,5 @@ import org.koin.dsl.module
  */
 
 val interactionModule = module {
-    factory<GetPriceUseCase> { GetPriceUseCase.Base(get()) }
+    factory<GetPriceUseCase.Base> { GetPriceUseCase.Base(get()) }
 }

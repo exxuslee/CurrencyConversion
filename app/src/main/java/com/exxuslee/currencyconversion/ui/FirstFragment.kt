@@ -18,9 +18,9 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
  */
 class FirstFragment : Fragment() {
 
+    private val viewModel: FistFragmentViewModel by viewModel()
     private var _binding: FragmentFirstBinding? = null
     private val binding get() = _binding!!
-    private val viewModel: FistFragmentViewModel by viewModel()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?,
