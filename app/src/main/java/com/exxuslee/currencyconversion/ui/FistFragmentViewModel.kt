@@ -25,7 +25,7 @@ class FistFragmentViewModel(private val getCardInfoUseCase: GetPriceUseCase.Base
         _isLoading.postValue(true)
         viewModelScope.launch {
             when (val result =
-                withContext(Dispatchers.IO) { getCardInfoUseCase("EUR", "", true) }) {
+                withContext(Dispatchers.IO) { getCardInfoUseCase("EUR", "EUR,USD,GBP", true) }) {
                 is Result.Success -> {
                     _isLoading.postValue(false)
                     if (result.data != null) {
@@ -49,7 +49,7 @@ class FistFragmentViewModel(private val getCardInfoUseCase: GetPriceUseCase.Base
         _isLoading.postValue(true)
         viewModelScope.launch {
             when (val result =
-                withContext(Dispatchers.IO) { getCardInfoUseCase("EUR", "", false) }) {
+                withContext(Dispatchers.IO) { getCardInfoUseCase("EUR", "EUR,USD,GBP", false) }) {
                 is Result.Success -> {
                     _isLoading.postValue(false)
                     if (result.data != null) {

@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import com.exxuslee.currencyconversion.R
 import com.exxuslee.currencyconversion.databinding.FragmentFirstBinding
 import com.exxuslee.currencyconversion.utils.showIf
+import com.exxuslee.domain.models.Price
 import com.google.android.material.snackbar.Snackbar
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -26,7 +27,7 @@ class FirstFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?,
     ): View? {
 
-     //   viewModel.getLocalCardInfo()
+        viewModel.getLocalCardInfo()
         _binding = FragmentFirstBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -48,6 +49,10 @@ class FirstFragment : Fragment() {
                 Snackbar.make(requireView(),"Oops! An error occured, check your connection and retry!",
                     Snackbar.LENGTH_LONG).show()
             }
+        })
+
+        viewModel.price.observe(viewLifecycleOwner, Observer { Price ->
+            binding.textviewFirst.text = Price?.date
         })
     }
 

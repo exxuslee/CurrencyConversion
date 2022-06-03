@@ -2,13 +2,13 @@ package com.exxuslee.data.remote.api
 
 import com.exxuslee.data.remote.response.PriceResponse
 import retrofit2.Response
-import retrofit2.http.GET
-import retrofit2.http.Path
+import retrofit2.http.*
 
 interface PriceApiService {
-    @GET("symbols={symbols}&base={base}")
+    @Headers("apikey: h56SAJavNkHTN4ocFsQui3Jx6bwJxt33")
+    @GET("fixer/latest")
     suspend fun getPrice(
-        @Path("symbols") symbols: String,
-        @Path("base") base: String,
+        @Query("symbols") symbols: String,
+        @Query("base") base: String,
     ): Response<PriceResponse>
 }
