@@ -16,5 +16,5 @@ data class PriceEntity(
     @ColumnInfo(name = "id") val id: Int = 0,
     @ColumnInfo(name = "base") val base: String? = "",
     @ColumnInfo(name = "date") val date: String? = "",
-//    @ColumnInfo(name = "rate") val rate: Map<String, Double> = mapOf(Pair("", 0.0)),
+    @ColumnInfo(name = "rates") val rates: Map<String, Double> = mapOf(Pair("", 0.0)),
 )
