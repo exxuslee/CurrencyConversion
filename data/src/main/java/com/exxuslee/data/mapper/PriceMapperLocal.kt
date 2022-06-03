@@ -8,7 +8,7 @@ class PriceMapperLocal : BaseMapperRepository<PriceEntity, Price> {
     override fun transform(type: PriceEntity): Price = Price(
         type.base ?: "",
         type.date ?: "",
-        type.rates ?: mapOf(Pair("", 0.0))
+        type.rates ?: mapOf(Pair("0", 0.0))
     )
 
     override fun transformToRepository(type: Price): PriceEntity = PriceEntity(
