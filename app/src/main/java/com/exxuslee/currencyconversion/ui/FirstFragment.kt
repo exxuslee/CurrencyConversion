@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.RecyclerView
 import com.exxuslee.currencyconversion.R
 import com.exxuslee.currencyconversion.databinding.FragmentFirstBinding
 import com.exxuslee.currencyconversion.utils.showIf
@@ -44,16 +45,20 @@ class FirstFragment : Fragment() {
         })
 
         viewModel.dataFetchState.observe(viewLifecycleOwner, Observer { state ->
-            if (!state){
+            if (!state) {
                 binding.errorText.visibility = View.VISIBLE
-                Snackbar.make(requireView(),"Oops! An error occured, check your connection and retry!",
+                Snackbar.make(requireView(),
+                    "Oops! An error occured, check your connection and retry!",
                     Snackbar.LENGTH_LONG).show()
             }
         })
 
         viewModel.price.observe(viewLifecycleOwner, Observer { Price ->
             binding.textviewFirst.text = Price?.date
+
         })
+
+        binding.recyclerView.adapter = FirstAdapter()
     }
 
     override fun onDestroyView() {
