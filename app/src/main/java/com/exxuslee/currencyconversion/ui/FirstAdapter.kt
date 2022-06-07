@@ -11,7 +11,7 @@ import com.exxuslee.currencyconversion.R
 class FirstAdapter : RecyclerView.Adapter<FirstAdapter.FirstHolder>() {
 
 
-    private val list = listOf("1", "2", "3", "4", "5")
+    private val list = listOf("1", "2", "3", "4", "5","1", "2", "3", "4", "5","1", "2", "3", "4", "5","1", "2", "3", "4", "5","1", "2", "3", "4", "5")
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FirstHolder {
