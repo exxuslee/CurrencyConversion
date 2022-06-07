@@ -1,6 +1,7 @@
 package com.exxuslee.currencyconversion.ui
 
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +14,7 @@ import com.exxuslee.currencyconversion.databinding.FragmentFirstBinding
 import com.exxuslee.currencyconversion.utils.showIf
 import com.exxuslee.domain.models.Price
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.android.synthetic.main.fragment_first.view.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
@@ -23,6 +25,7 @@ class FirstFragment : Fragment() {
     private val viewModel: FistFragmentViewModel by viewModel()
     private var _binding: FragmentFirstBinding? = null
     private val binding get() = _binding!!
+    private lateinit var firstAdapter: FirstAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?,
@@ -55,10 +58,14 @@ class FirstFragment : Fragment() {
 
         viewModel.price.observe(viewLifecycleOwner, Observer { Price ->
             binding.textviewFirst.text = Price?.date
-
         })
 
-        binding.recyclerView.adapter = FirstAdapter()
+        firstAdapter = FirstAdapter()
+        binding.recyclerView.adapter = firstAdapter
+        firstAdapter.onPriceClickListener = {
+            Log.d ("price", "position $it")
+        }
+
     }
 
     override fun onDestroyView() {

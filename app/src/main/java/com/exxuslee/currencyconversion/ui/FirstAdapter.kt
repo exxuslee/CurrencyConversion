@@ -1,5 +1,6 @@
 package com.exxuslee.currencyconversion.ui
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,6 +14,7 @@ class FirstAdapter : RecyclerView.Adapter<FirstAdapter.FirstHolder>() {
 
     private val list = listOf("1", "2", "3", "4", "5","1", "2", "3", "4", "5","1", "2", "3", "4", "5","1", "2", "3", "4", "5","1", "2", "3", "4", "5")
 
+    var onPriceClickListener: ((Int) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FirstHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.recycler, parent, false)
@@ -23,6 +25,9 @@ class FirstAdapter : RecyclerView.Adapter<FirstAdapter.FirstHolder>() {
         val shopItem = list[position]
         viewHolder.tvName.text = shopItem
         viewHolder.tvCount.text = position.toString()
+        viewHolder.itemView.setOnClickListener {
+            onPriceClickListener?.invoke(position)
+        }
     }
 
     override fun getItemCount() = list.size
