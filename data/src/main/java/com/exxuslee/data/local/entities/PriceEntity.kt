@@ -1,5 +1,6 @@
 package com.exxuslee.data.local.entities
 
+import androidx.collection.ArrayMap
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -16,5 +17,5 @@ data class PriceEntity(
     @ColumnInfo(name = "id") val id: Int = 0,
     @ColumnInfo(name = "base") val base: String? = "",
     @ColumnInfo(name = "date") val date: String? = "",
-    @ColumnInfo(name = "rates") val rates: Map<String, Double> = mapOf(Pair("0", 0.0)),
+    @ColumnInfo(name = "rates") val rates: ArrayMap<String, Double>
 )

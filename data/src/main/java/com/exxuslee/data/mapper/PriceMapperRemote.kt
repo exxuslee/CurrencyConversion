@@ -14,6 +14,6 @@ class PriceMapperRemote : BaseMapperRepository<PriceResponse, Price> {
     )
 
     override fun transformToRepository(type: Price): PriceResponse = PriceResponse(
-        base = type.base, date = type.date
+        base = type.base, date = type.date, rates = type.rates
     )
 }

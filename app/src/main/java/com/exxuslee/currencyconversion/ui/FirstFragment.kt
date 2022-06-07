@@ -8,13 +8,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
-import androidx.recyclerview.widget.RecyclerView
 import com.exxuslee.currencyconversion.R
 import com.exxuslee.currencyconversion.databinding.FragmentFirstBinding
 import com.exxuslee.currencyconversion.utils.showIf
-import com.exxuslee.domain.models.Price
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.fragment_first.view.*
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 /**
@@ -39,6 +36,9 @@ class FirstFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        firstAdapter = FirstAdapter()
+        binding.recyclerView.adapter = firstAdapter
+
         binding.buttonFirst.setOnClickListener {
             findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
         }
@@ -58,10 +58,10 @@ class FirstFragment : Fragment() {
 
         viewModel.price.observe(viewLifecycleOwner, Observer { Price ->
             binding.textviewFirst.text = Price?.date
+            firstAdapter.updateAdapter(Price)
         })
 
-        firstAdapter = FirstAdapter()
-        binding.recyclerView.adapter = firstAdapter
+
         firstAdapter.onPriceClickListener = {
             Log.d ("price", "position $it")
         }

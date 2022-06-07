@@ -1,18 +1,19 @@
 package com.exxuslee.currencyconversion.ui
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.collection.arrayMapOf
 import androidx.recyclerview.widget.RecyclerView
 import com.exxuslee.currencyconversion.R
+import com.exxuslee.domain.models.Price
 
 
 class FirstAdapter : RecyclerView.Adapter<FirstAdapter.FirstHolder>() {
 
 
-    private val list = listOf("1", "2", "3", "4", "5","1", "2", "3", "4", "5","1", "2", "3", "4", "5","1", "2", "3", "4", "5","1", "2", "3", "4", "5")
+    private var list = arrayMapOf<String,Double>("1" to 1.1, "2" to 2.2)
 
     var onPriceClickListener: ((Int) -> Unit)? = null
 
@@ -22,15 +23,21 @@ class FirstAdapter : RecyclerView.Adapter<FirstAdapter.FirstHolder>() {
     }
 
     override fun onBindViewHolder(viewHolder: FirstHolder, position: Int) {
-        val shopItem = list[position]
-        viewHolder.tvName.text = shopItem
-        viewHolder.tvCount.text = position.toString()
+        viewHolder.tvName.text = list.keyAt(position)
+        viewHolder.tvCount.text = list.valueAt(position).toString()
         viewHolder.itemView.setOnClickListener {
             onPriceClickListener?.invoke(position)
         }
     }
 
     override fun getItemCount() = list.size
+
+    fun updateAdapter(price: Price?) {
+        if (price != null) {
+            list = price.rates
+            notifyDataSetChanged()
+        }
+    }
 
     class FirstHolder(view: View) : RecyclerView.ViewHolder(view) {
         val tvName: TextView = view.findViewById(R.id.tv_name)

@@ -1,12 +1,12 @@
 package com.exxuslee.data.remote.response
 
+import androidx.collection.ArrayMap
 import com.exxuslee.data.local.entities.PriceEntity
-
 
 data class PriceResponse(
     val base: String = "",
     val date: String = "",
-    val rates: Map<String, Double> = mapOf(Pair("", 0.0)),
+    val rates: ArrayMap<String, Double>
 )
 
 /**
