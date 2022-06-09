@@ -6,6 +6,7 @@ import com.exxuslee.data.mapper.PriceMapperLocal
 import com.exxuslee.data.mapper.PriceMapperRemote
 import com.exxuslee.data.remote.api.PriceApiService
 import com.exxuslee.domain.models.Price
+import com.exxuslee.domain.models.Symbols
 import com.exxuslee.domain.repositories.PriceRepository
 import com.exxuslee.domain.utils.Result
 
@@ -47,6 +48,10 @@ class PriceRepositoryImpl(
                 }
             }
         }
+    }
+
+    override suspend fun getCurrencies(getFromRemote: Boolean): Result<Symbols> {
+        TODO("Not yet implemented")
     }
 //    companion object {
 //        private const val TAG = "price"
