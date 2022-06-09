@@ -2,6 +2,7 @@ package com.exxuslee.data.local.typeconverter
 
 import androidx.collection.ArrayMap
 import androidx.room.TypeConverter
+import com.exxuslee.domain.models.Price
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.lang.reflect.Type
@@ -9,7 +10,6 @@ import java.lang.reflect.Type
 class Converters {
     private val gson = Gson()
     private val typeRates: Type = object : TypeToken<ArrayMap<String, Double>?>() {}.type
-
 
     @TypeConverter
     fun fromRates(rates: ArrayMap<String, Double>?): String{

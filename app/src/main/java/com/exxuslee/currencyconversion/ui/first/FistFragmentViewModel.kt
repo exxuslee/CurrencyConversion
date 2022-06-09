@@ -1,4 +1,4 @@
-package com.exxuslee.currencyconversion.ui
+package com.exxuslee.currencyconversion.ui.first
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
