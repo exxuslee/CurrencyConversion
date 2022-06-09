@@ -4,23 +4,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.collection.ArrayMap
 import androidx.collection.arrayMapOf
 import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.exxuslee.currencyconversion.R
 import com.exxuslee.domain.models.Price
 
 
-class FirstAdapter : RecyclerView.Adapter<FirstAdapter.FirstHolder>() {
-
-
-    private var list = arrayMapOf<String,Double>("1" to 1.1, "2" to 2.2)
-        set(value) {
-            val callBack = DiffCallBack(list, value)
-            val diffResult = DiffUtil.calculateDiff(callBack)
-            diffResult.dispatchUpdatesTo(this)
-            field = value
-        }
+class FirstAdapter :
+    ListAdapter<Pair<String, Double>, FirstAdapter.FirstHolder>(PriceDiffCallback()) {
 
     var onPriceClickListener: ((Int) -> Unit)? = null
 
@@ -30,19 +24,15 @@ class FirstAdapter : RecyclerView.Adapter<FirstAdapter.FirstHolder>() {
     }
 
     override fun onBindViewHolder(viewHolder: FirstHolder, position: Int) {
-        viewHolder.tvName.text = list.keyAt(position)
-        viewHolder.tvCount.text = list.valueAt(position).toString()
+        viewHolder.tvName.text = getItem(position).first
+        viewHolder.tvCount.text = getItem(position).second.toString()
         viewHolder.itemView.setOnClickListener {
             onPriceClickListener?.invoke(position)
         }
     }
 
-    override fun getItemCount() = list.size
-
     fun updateAdapter(price: Price?) {
-        if (price != null) {
-            list = price.rates
-        }
+        submitList(price?.rates?.toList())
     }
 
     class FirstHolder(view: View) : RecyclerView.ViewHolder(view) {
