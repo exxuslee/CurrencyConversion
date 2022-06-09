@@ -2,7 +2,7 @@ package com.exxuslee.currencyconversion.ui.first
 
 import androidx.recyclerview.widget.DiffUtil
 
-class PriceDiffCallback : DiffUtil.ItemCallback<Pair<String, Double>>() {
+class RatesDiffCallback : DiffUtil.ItemCallback<Pair<String, Double>>() {
     override fun areItemsTheSame(
         oldItem: Pair<String, Double>, newItem: Pair<String, Double>,
     ): Boolean {
@@ -12,6 +12,6 @@ class PriceDiffCallback : DiffUtil.ItemCallback<Pair<String, Double>>() {
     override fun areContentsTheSame(
         oldItem: Pair<String, Double>, newItem: Pair<String, Double>,
     ): Boolean {
-       return oldItem.second == newItem.second
+       return oldItem == newItem
     }
 }

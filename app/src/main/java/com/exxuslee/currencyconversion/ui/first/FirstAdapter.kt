@@ -4,9 +4,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.collection.ArrayMap
-import androidx.collection.arrayMapOf
-import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.exxuslee.currencyconversion.R
@@ -14,7 +11,7 @@ import com.exxuslee.domain.models.Price
 
 
 class FirstAdapter :
-    ListAdapter<Pair<String, Double>, FirstAdapter.FirstHolder>(PriceDiffCallback()) {
+    ListAdapter<Pair<String, Double>, FirstAdapter.FirstHolder>(RatesDiffCallback()) {
 
     var onPriceClickListener: ((Int) -> Unit)? = null
 

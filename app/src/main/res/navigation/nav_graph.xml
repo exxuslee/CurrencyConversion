@@ -17,7 +17,7 @@
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
-        android:name="com.exxuslee.currencyconversion.ui.second.SecondFragment"
+        android:name="com.exxuslee.currencyconversion.ui.favorite.SecondFragment"
         android:label="@string/second_fragment_label"
         tools:layout="@layout/fragment_second">
 

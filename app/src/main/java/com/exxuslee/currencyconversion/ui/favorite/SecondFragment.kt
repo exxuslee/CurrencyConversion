@@ -1,4 +1,4 @@
-package com.exxuslee.currencyconversion.ui.second
+package com.exxuslee.currencyconversion.ui.favorite
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
