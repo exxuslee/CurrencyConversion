@@ -15,7 +15,6 @@ class DiffCallBack(
     override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int) =
         oldList.keyAt(oldItemPosition) == newList.keyAt(oldItemPosition)
 
-    override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int): Boolean {
-        TODO("Not yet implemented")
-    }
+    override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int) =
+        oldList.valueAt(oldItemPosition) == newList.valueAt(oldItemPosition)
 }

@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.collection.arrayMapOf
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.exxuslee.currencyconversion.R
 import com.exxuslee.domain.models.Price
@@ -14,6 +15,12 @@ class FirstAdapter : RecyclerView.Adapter<FirstAdapter.FirstHolder>() {
 
 
     private var list = arrayMapOf<String,Double>("1" to 1.1, "2" to 2.2)
+        set(value) {
+            val callBack = DiffCallBack(list, value)
+            val diffResult = DiffUtil.calculateDiff(callBack)
+            diffResult.dispatchUpdatesTo(this)
+            field = value
+        }
 
     var onPriceClickListener: ((Int) -> Unit)? = null
 
@@ -35,7 +42,6 @@ class FirstAdapter : RecyclerView.Adapter<FirstAdapter.FirstHolder>() {
     fun updateAdapter(price: Price?) {
         if (price != null) {
             list = price.rates
-            notifyDataSetChanged()
         }
     }
 
