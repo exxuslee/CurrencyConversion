@@ -16,7 +16,7 @@ class FirstAdapter :
     var onPriceClickListener: ((Int) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FirstHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.recycler, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.recycler_fist, parent, false)
         return FirstHolder(view)
     }
 
