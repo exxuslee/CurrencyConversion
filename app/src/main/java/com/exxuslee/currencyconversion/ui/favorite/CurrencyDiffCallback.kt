@@ -12,6 +12,6 @@ class CurrencyDiffCallback : DiffUtil.ItemCallback<Pair<String, String>>() {
     override fun areContentsTheSame(
         oldItem: Pair<String, String>, newItem: Pair<String, String>,
     ): Boolean {
-       return oldItem == newItem
+        return oldItem == newItem
     }
 }

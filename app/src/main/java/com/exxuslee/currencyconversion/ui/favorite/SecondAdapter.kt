@@ -17,7 +17,8 @@ class SecondAdapter :
     var onPriceClickListener: ((Int) -> Unit)? = null
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FirstHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.recycler_second, parent, false)
+        val view =
+            LayoutInflater.from(parent.context).inflate(R.layout.recycler_second, parent, false)
         return FirstHolder(view)
     }
 
@@ -30,7 +31,7 @@ class SecondAdapter :
         }
     }
 
-    fun updateAdapter(symbols:  Symbols?) {
+    fun updateAdapter(symbols: Symbols?) {
         submitList(symbols?.currency?.toList())
     }
 

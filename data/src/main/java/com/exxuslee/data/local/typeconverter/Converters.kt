@@ -2,7 +2,6 @@ package com.exxuslee.data.local.typeconverter
 
 import androidx.collection.ArrayMap
 import androidx.room.TypeConverter
-import com.exxuslee.domain.models.Price
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import java.lang.reflect.Type
@@ -13,22 +12,22 @@ class Converters {
     private val typeCurrency: Type = object : TypeToken<ArrayMap<String, String>?>() {}.type
 
     @TypeConverter
-    fun fromRates(rates: ArrayMap<String, Double>?): String{
-        return gson.toJson(rates,typeRates)
+    fun fromRates(rates: ArrayMap<String, Double>?): String {
+        return gson.toJson(rates, typeRates)
     }
 
     @TypeConverter
     fun toRates(json: String?): ArrayMap<String, Double> {
-        return gson.fromJson(json,typeRates)
+        return gson.fromJson(json, typeRates)
     }
 
     @TypeConverter
-    fun fromCurrency(currency: ArrayMap<String, String>?): String{
-        return gson.toJson(currency,typeCurrency)
+    fun fromCurrency(currency: ArrayMap<String, String>?): String {
+        return gson.toJson(currency, typeCurrency)
     }
 
     @TypeConverter
     fun toCurrency(json: String?): ArrayMap<String, String> {
-        return gson.fromJson(json,typeCurrency)
+        return gson.fromJson(json, typeCurrency)
     }
 }

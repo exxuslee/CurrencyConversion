@@ -9,7 +9,6 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.findNavController
 import com.exxuslee.currencyconversion.R
 import com.exxuslee.currencyconversion.databinding.FragmentSecondBinding
-import com.exxuslee.currencyconversion.ui.price.FirstAdapter
 import com.exxuslee.currencyconversion.utils.showIf
 import com.google.android.material.snackbar.Snackbar
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -23,14 +22,12 @@ class SecondFragment : Fragment() {
     private var _binding: FragmentSecondBinding? = null
     private lateinit var secondAdapter: SecondAdapter
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
+        savedInstanceState: Bundle?,
+    ): View {
 
         viewModel.localCurrency()
         _binding = FragmentSecondBinding.inflate(inflater, container, false)
@@ -48,22 +45,22 @@ class SecondFragment : Fragment() {
             findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
         }
 
-        viewModel.isLoading.observe(viewLifecycleOwner, Observer { state ->
+        viewModel.isLoading.observe(viewLifecycleOwner) { state ->
             binding.progressBar.showIf { state }
-        })
+        }
 
-        viewModel.dataFetchState.observe(viewLifecycleOwner, Observer { state ->
+        viewModel.dataFetchState.observe(viewLifecycleOwner) { state ->
             if (!state) {
                 binding.errorText.visibility = View.VISIBLE
                 Snackbar.make(requireView(),
                     "Oops! An error occured, check your connection and retry!",
                     Snackbar.LENGTH_LONG).show()
             }
-        })
+        }
 
-        viewModel.symbols.observe(viewLifecycleOwner, Observer { Symbol ->
+        viewModel.symbols.observe(viewLifecycleOwner) { Symbol ->
             secondAdapter.updateAdapter(Symbol)
-        })
+        }
     }
 
     override fun onDestroyView() {

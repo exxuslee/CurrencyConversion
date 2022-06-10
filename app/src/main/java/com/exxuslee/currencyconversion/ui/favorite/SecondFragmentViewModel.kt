@@ -11,7 +11,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class SecondFragmentViewModel(private val getCurrenciesUseCase: GetCurrenciesUseCase.Base) : ViewModel() {
+class SecondFragmentViewModel(private val getCurrenciesUseCase: GetCurrenciesUseCase.Base) :
+    ViewModel() {
     private val _symbols = MutableLiveData<Symbols?>()
     val symbols = _symbols.asLiveData()
 
@@ -25,7 +26,7 @@ class SecondFragmentViewModel(private val getCurrenciesUseCase: GetCurrenciesUse
         _isLoading.postValue(true)
         viewModelScope.launch {
             when (val result =
-                withContext(Dispatchers.IO) { getCurrenciesUseCase( true) }) {
+                withContext(Dispatchers.IO) { getCurrenciesUseCase(true) }) {
                 is Result.Success -> {
                     _isLoading.postValue(false)
                     if (result.data != null) {
@@ -49,7 +50,7 @@ class SecondFragmentViewModel(private val getCurrenciesUseCase: GetCurrenciesUse
         _isLoading.postValue(true)
         viewModelScope.launch {
             when (val result =
-                withContext(Dispatchers.IO) { getCurrenciesUseCase( false) }) {
+                withContext(Dispatchers.IO) { getCurrenciesUseCase(false) }) {
                 is Result.Success -> {
                     _isLoading.postValue(false)
                     if (result.data != null) {

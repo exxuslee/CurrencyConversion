@@ -2,11 +2,10 @@ package com.exxuslee.currencyconversion.ui.price
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.lifecycle.Observer
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.exxuslee.currencyconversion.R
 import com.exxuslee.currencyconversion.databinding.FragmentFirstBinding
@@ -26,7 +25,7 @@ class FirstFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?,
-    ): View? {
+    ): View {
 
         viewModel.localPrice()
         _binding = FragmentFirstBinding.inflate(inflater, container, false)
@@ -43,27 +42,27 @@ class FirstFragment : Fragment() {
             findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
         }
 
-        viewModel.isLoading.observe(viewLifecycleOwner, Observer { state ->
+        viewModel.isLoading.observe(viewLifecycleOwner) { state ->
             binding.progressBar.showIf { state }
-        })
+        }
 
-        viewModel.dataFetchState.observe(viewLifecycleOwner, Observer { state ->
+        viewModel.dataFetchState.observe(viewLifecycleOwner) { state ->
             if (!state) {
                 binding.errorText.visibility = View.VISIBLE
                 Snackbar.make(requireView(),
                     "Oops! An error occured, check your connection and retry!",
                     Snackbar.LENGTH_LONG).show()
             }
-        })
+        }
 
-        viewModel.price.observe(viewLifecycleOwner, Observer { Price ->
+        viewModel.price.observe(viewLifecycleOwner) { Price ->
             binding.textviewFirst.text = Price?.date
             firstAdapter.updateAdapter(Price)
-        })
+        }
 
 
         firstAdapter.onPriceClickListener = {
-            Log.d ("price", "position $it")
+            Log.d(TAG, "position $it")
         }
 
     }
@@ -71,5 +70,9 @@ class FirstFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    companion object{
+        const val TAG = "price"
     }
 }

@@ -12,6 +12,6 @@ class RatesDiffCallback : DiffUtil.ItemCallback<Pair<String, Double>>() {
     override fun areContentsTheSame(
         oldItem: Pair<String, Double>, newItem: Pair<String, Double>,
     ): Boolean {
-       return oldItem == newItem
+        return oldItem == newItem
     }
 }

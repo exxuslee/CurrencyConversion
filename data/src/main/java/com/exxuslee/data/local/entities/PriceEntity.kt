@@ -17,5 +17,5 @@ data class PriceEntity(
     @ColumnInfo(name = "id") val id: Int = 0,
     @ColumnInfo(name = "base") val base: String? = "",
     @ColumnInfo(name = "date") val date: String? = "",
-    @ColumnInfo(name = "rates") val rates: ArrayMap<String, Double>
+    @ColumnInfo(name = "rates") val rates: ArrayMap<String, Double>,
 )

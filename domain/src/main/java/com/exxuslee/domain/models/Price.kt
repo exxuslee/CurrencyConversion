@@ -9,5 +9,5 @@ import androidx.collection.ArrayMap
 data class Price(
     val base: String,
     val date: String,
-    val rates: ArrayMap<String, Double>
+    val rates: ArrayMap<String, Double>,
 )

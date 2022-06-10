@@ -20,7 +20,11 @@ class PriceRepositoryImpl(
     private val CurrencyDao: CurrencyDao,
 ) : PriceRepository {
 
-    override suspend fun getPrice(base:String, symbols:String, getFromRemote: Boolean): Result<Price> {
+    override suspend fun getPrice(
+        base: String,
+        symbols: String,
+        getFromRemote: Boolean,
+    ): Result<Price> {
         return when {
             getFromRemote -> {
                 val priceResult = PriceApi.getPrice(base = base, symbols = symbols)

@@ -6,10 +6,10 @@ import androidx.lifecycle.viewModelScope
 import com.exxuslee.currencyconversion.utils.asLiveData
 import com.exxuslee.domain.models.Price
 import com.exxuslee.domain.usecases.GetPriceUseCase
+import com.exxuslee.domain.utils.Result
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import com.exxuslee.domain.utils.Result
 
 class FistFragmentViewModel(private val getCardInfoUseCase: GetPriceUseCase.Base) : ViewModel() {
     private val _price = MutableLiveData<Price?>()
