@@ -4,18 +4,15 @@ import androidx.collection.ArrayMap
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.exxuslee.data.utils.Constants.PRICE_TABLE
+import com.exxuslee.data.utils.Constants
 
 /**
  * Created by Exxus Lee on 22/07/2020.
  */
 
-@Entity(tableName = PRICE_TABLE)
-data class PriceEntity(
-
+@Entity(tableName = Constants.CURRENCY_TABLE)
+data class CurrencyEntity(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id") val id: Int = 0,
-    @ColumnInfo(name = "base") val base: String? = "",
-    @ColumnInfo(name = "date") val date: String? = "",
-    @ColumnInfo(name = "rates") val rates: ArrayMap<String, Double>
+    @ColumnInfo(name = "symbols") val symbols: ArrayMap<String, String>,
 )

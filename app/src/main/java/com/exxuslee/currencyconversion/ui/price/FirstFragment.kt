@@ -1,4 +1,4 @@
-package com.exxuslee.currencyconversion.ui.first
+package com.exxuslee.currencyconversion.ui.price
 
 import android.os.Bundle
 import android.util.Log
@@ -28,7 +28,7 @@ class FirstFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?,
     ): View? {
 
-        viewModel.getLocalCardInfo()
+        viewModel.localPrice()
         _binding = FragmentFirstBinding.inflate(inflater, container, false)
         return binding.root
     }

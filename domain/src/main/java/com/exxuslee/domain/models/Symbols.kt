@@ -1,12 +1,11 @@
 package com.exxuslee.domain.models
 
+import androidx.collection.ArrayMap
+
 /**
- * {
-"success": true,
-"symbols": {
-"AED": "United Arab Emirates Dirham",
+ * {"success": true, "symbols": {"AED": "United Arab Emirates Dirham",
  */
 
 data class Symbols(
-    val currency: String,
+    val currency: ArrayMap<String, String>,
 )

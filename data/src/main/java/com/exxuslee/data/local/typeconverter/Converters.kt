@@ -10,6 +10,7 @@ import java.lang.reflect.Type
 class Converters {
     private val gson = Gson()
     private val typeRates: Type = object : TypeToken<ArrayMap<String, Double>?>() {}.type
+    private val typeCurrency: Type = object : TypeToken<ArrayMap<String, String>?>() {}.type
 
     @TypeConverter
     fun fromRates(rates: ArrayMap<String, Double>?): String{
@@ -19,5 +20,15 @@ class Converters {
     @TypeConverter
     fun toRates(json: String?): ArrayMap<String, Double> {
         return gson.fromJson(json,typeRates)
+    }
+
+    @TypeConverter
+    fun fromCurrency(currency: ArrayMap<String, String>?): String{
+        return gson.toJson(currency,typeCurrency)
+    }
+
+    @TypeConverter
+    fun toCurrency(json: String?): ArrayMap<String, String> {
+        return gson.fromJson(json,typeCurrency)
     }
 }

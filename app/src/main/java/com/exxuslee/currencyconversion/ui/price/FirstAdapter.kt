@@ -1,4 +1,4 @@
-package com.exxuslee.currencyconversion.ui.first
+package com.exxuslee.currencyconversion.ui.price
 
 import android.view.LayoutInflater
 import android.view.View

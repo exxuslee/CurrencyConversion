@@ -1,19 +1,19 @@
-package com.exxuslee.currencyconversion.ui.first
+package com.exxuslee.currencyconversion.ui.favorite
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.exxuslee.currencyconversion.utils.asLiveData
-import com.exxuslee.domain.models.Price
-import com.exxuslee.domain.usecases.GetPriceUseCase
+import com.exxuslee.domain.models.Symbols
+import com.exxuslee.domain.usecases.GetCurrenciesUseCase
+import com.exxuslee.domain.utils.Result
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import com.exxuslee.domain.utils.Result
 
-class FistFragmentViewModel(private val getCardInfoUseCase: GetPriceUseCase.Base) : ViewModel() {
-    private val _price = MutableLiveData<Price?>()
-    val price = _price.asLiveData()
+class SecondFragmentViewModel(private val getCurrenciesUseCase: GetCurrenciesUseCase.Base) : ViewModel() {
+    private val _symbols = MutableLiveData<Symbols?>()
+    val symbols = _symbols.asLiveData()
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading = _isLoading.asLiveData()
@@ -21,16 +21,16 @@ class FistFragmentViewModel(private val getCardInfoUseCase: GetPriceUseCase.Base
     private val _dataFetchState = MutableLiveData<Boolean>()
     val dataFetchState = _dataFetchState.asLiveData()
 
-    private fun getRemoteCardInfo() {
+    private fun remoteCurrency() {
         _isLoading.postValue(true)
         viewModelScope.launch {
             when (val result =
-                withContext(Dispatchers.IO) { getCardInfoUseCase("EUR", "EUR,USD,GBP", true) }) {
+                withContext(Dispatchers.IO) { getCurrenciesUseCase( true) }) {
                 is Result.Success -> {
                     _isLoading.postValue(false)
                     if (result.data != null) {
                         _dataFetchState.postValue(true)
-                        _price.postValue(result.data)
+                        _symbols.postValue(result.data)
                     } else {
                         _dataFetchState.postValue(false)
                     }
@@ -45,18 +45,18 @@ class FistFragmentViewModel(private val getCardInfoUseCase: GetPriceUseCase.Base
         }
     }
 
-    fun getLocalCardInfo() {
+    fun localCurrency() {
         _isLoading.postValue(true)
         viewModelScope.launch {
             when (val result =
-                withContext(Dispatchers.IO) { getCardInfoUseCase("EUR", "EUR,USD,GBP", false) }) {
+                withContext(Dispatchers.IO) { getCurrenciesUseCase( false) }) {
                 is Result.Success -> {
                     _isLoading.postValue(false)
                     if (result.data != null) {
                         _dataFetchState.postValue(true)
-                        _price.postValue(result.data)
+                        _symbols.postValue(result.data)
                     } else {
-                        getRemoteCardInfo()
+                        remoteCurrency()
                     }
                 }
                 else -> {}

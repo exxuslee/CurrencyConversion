@@ -1,4 +1,4 @@
-package com.exxuslee.currencyconversion.ui.first
+package com.exxuslee.currencyconversion.ui.price
 
 import androidx.recyclerview.widget.DiffUtil
 

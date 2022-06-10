@@ -17,4 +17,5 @@ val databaseModule = module {
     }
 
     factory { get<PriceDatabase>().priceDao }
+    factory { get<PriceDatabase>().currencyDao }
 }
