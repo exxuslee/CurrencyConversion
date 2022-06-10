@@ -21,8 +21,8 @@ class SecondAdapter :
     }
 
     override fun onBindViewHolder(viewHolder: FirstHolder, position: Int) {
-        viewHolder.tvName.text = getItem(position).first
-        viewHolder.tvCount.text = getItem(position).second
+        viewHolder.xxxName.text = getItem(position).first
+        viewHolder.currencyName.text = getItem(position).second
         viewHolder.itemView.setOnClickListener {
             onPriceClickListener?.invoke(position)
         }
@@ -33,8 +33,10 @@ class SecondAdapter :
     }
 
     class FirstHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val tvName: TextView = view.findViewById(R.id.currencyTextView)
+        val xxxName: TextView = view.findViewById(R.id.xxxTextView)
+        val currencyName: TextView = view.findViewById(R.id.currencyTextView)
         val tvCount: TextView = view.findViewById(R.id.compoundButton)
+
     }
 
 }
