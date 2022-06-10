@@ -3,6 +3,7 @@ package com.exxuslee.currencyconversion.ui.favorite
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
 import android.widget.TextView
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -25,6 +26,7 @@ class SecondAdapter :
         viewHolder.currencyName.text = getItem(position).second
         viewHolder.itemView.setOnClickListener {
             onPriceClickListener?.invoke(position)
+            viewHolder.tvCount.toggle()
         }
     }
 
@@ -35,7 +37,7 @@ class SecondAdapter :
     class FirstHolder(view: View) : RecyclerView.ViewHolder(view) {
         val xxxName: TextView = view.findViewById(R.id.xxxTextView)
         val currencyName: TextView = view.findViewById(R.id.currencyTextView)
-        val tvCount: TextView = view.findViewById(R.id.compoundButton)
+        val tvCount: CheckBox = view.findViewById(R.id.compoundButton)
 
     }
 
