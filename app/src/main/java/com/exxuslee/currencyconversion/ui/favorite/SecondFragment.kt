@@ -5,9 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
-import androidx.navigation.fragment.findNavController
-import com.exxuslee.currencyconversion.R
 import com.exxuslee.currencyconversion.databinding.FragmentSecondBinding
 import com.exxuslee.currencyconversion.utils.showIf
 import com.google.android.material.snackbar.Snackbar
@@ -40,10 +37,6 @@ class SecondFragment : Fragment() {
 
         secondAdapter = SecondAdapter()
         binding.recyclerView.adapter = secondAdapter
-
-        binding.buttonSecond.setOnClickListener {
-            findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
-        }
 
         viewModel.isLoading.observe(viewLifecycleOwner) { state ->
             binding.progressBar.showIf { state }

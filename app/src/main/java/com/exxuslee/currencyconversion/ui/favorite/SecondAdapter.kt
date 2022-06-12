@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
+import android.widget.RadioButton
 import android.widget.TextView
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -15,6 +16,7 @@ class SecondAdapter :
     ListAdapter<Pair<String, String>, SecondAdapter.FirstHolder>(CurrencyDiffCallback()) {
 
     var onPriceClickListener: ((Int) -> Unit)? = null
+    var selectedPosition = -1
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FirstHolder {
         val view =
@@ -25,9 +27,16 @@ class SecondAdapter :
     override fun onBindViewHolder(viewHolder: FirstHolder, position: Int) {
         viewHolder.xxxName.text = getItem(position).first
         viewHolder.currencyName.text = getItem(position).second
-        viewHolder.itemView.setOnClickListener {
+        viewHolder.tvCount.setOnClickListener {
             onPriceClickListener?.invoke(position)
             viewHolder.tvCount.toggle()
+        }
+
+        viewHolder.radioButton.isChecked = position == selectedPosition
+        viewHolder.radioButton.setOnCheckedChangeListener { _, b ->
+            if (b) {
+                selectedPosition = viewHolder.adapterPosition
+            }
         }
     }
 
@@ -39,6 +48,7 @@ class SecondAdapter :
         val xxxName: TextView = view.findViewById(R.id.xxxTextView)
         val currencyName: TextView = view.findViewById(R.id.currencyTextView)
         val tvCount: CheckBox = view.findViewById(R.id.compoundButton)
+        val radioButton: RadioButton = view.findViewById(R.id.radioButton)
 
     }
 

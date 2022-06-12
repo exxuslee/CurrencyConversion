@@ -38,10 +38,6 @@ class FirstFragment : Fragment() {
         firstAdapter = FirstAdapter()
         binding.recyclerView.adapter = firstAdapter
 
-        binding.buttonFirst.setOnClickListener {
-            findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
-        }
-
         viewModel.isLoading.observe(viewLifecycleOwner) { state ->
             binding.progressBar.showIf { state }
         }
