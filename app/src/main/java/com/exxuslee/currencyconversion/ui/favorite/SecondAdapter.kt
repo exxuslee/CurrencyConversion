@@ -1,5 +1,6 @@
 package com.exxuslee.currencyconversion.ui.favorite
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,7 +15,7 @@ import com.exxuslee.currencyconversion.R
 
 class SecondAdapter : RecyclerView.Adapter<SecondAdapter.SecondHolder>() {
 
-    private var list = arrayMapOf<String,Double>("1" to 1.1, "2" to 2.2)
+    var list = arrayMapOf<String,String>("1" to "1.1", "2" to "2.2", "3" to "2.2", "4" to "2.2", "5" to "2.2", "6" to "2.2", "7" to "2.2", "8" to "2.2", "9" to "2.2", "11" to "2.2", "12" to "2.2", "13" to "2.2")
         set(value) {
             val callBack = CurrencyDiffCallback(list, value)
             val diffResult = DiffUtil.calculateDiff(callBack)
@@ -22,6 +23,7 @@ class SecondAdapter : RecyclerView.Adapter<SecondAdapter.SecondHolder>() {
             field = value
         }
     var onPriceClickListener: ((Int) -> Unit)? = null
+    var onRadioClickListener: ((Int) -> Unit)? = null
     private var selectedRadioPosition = -1
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SecondHolder {
@@ -44,8 +46,8 @@ class SecondAdapter : RecyclerView.Adapter<SecondAdapter.SecondHolder>() {
         viewHolder.radioButton.setOnCheckedChangeListener { _, b ->
             if (b) {
                 selectedRadioPosition = viewHolder.adapterPosition
-                onPriceClickListener?.invoke(position)
-                notifyDataSetChanged()
+                onRadioClickListener?.invoke(position)
+//                notifyDataSetChanged()
             }
         }
     }

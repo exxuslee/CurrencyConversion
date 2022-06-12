@@ -53,13 +53,19 @@ class SecondFragment : Fragment() {
             }
         }
 
-        viewModel.symbols.observe(viewLifecycleOwner) { Symbol ->
-            secondAdapter.notifyDataSetChanged()
-
+        viewModel.symbols.observe(viewLifecycleOwner) {
+            if (it != null) {
+                secondAdapter.list = it.currency
+            }
         }
 
         secondAdapter.onPriceClickListener = {
             Log.d(FirstFragment.TAG, "position $it")
+        }
+
+        secondAdapter.onRadioClickListener = {
+//            secondAdapter.notifyDataSetChanged()
+
         }
     }
 

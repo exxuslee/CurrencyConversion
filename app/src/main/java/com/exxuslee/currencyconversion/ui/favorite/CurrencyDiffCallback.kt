@@ -4,8 +4,8 @@ import androidx.collection.ArrayMap
 import androidx.recyclerview.widget.DiffUtil
 
 class CurrencyDiffCallback(
-    private val oldList: ArrayMap<String, Double>,
-    private val newList: ArrayMap<String, Double>,
+    private val oldList: ArrayMap<String, String>,
+    private val newList: ArrayMap<String, String>,
     ) : DiffUtil.Callback() {
         override fun getOldListSize() = oldList.size
 
