@@ -1,17 +1,19 @@
 package com.exxuslee.currencyconversion.ui.favorite
 
+import androidx.collection.ArrayMap
 import androidx.recyclerview.widget.DiffUtil
 
-class CurrencyDiffCallback : DiffUtil.ItemCallback<Pair<String, String>>() {
-    override fun areItemsTheSame(
-        oldItem: Pair<String, String>, newItem: Pair<String, String>,
-    ): Boolean {
-        return oldItem.first == newItem.first
-    }
+class CurrencyDiffCallback(
+    private val oldList: ArrayMap<String, Double>,
+    private val newList: ArrayMap<String, Double>,
+    ) : DiffUtil.Callback() {
+        override fun getOldListSize() = oldList.size
 
-    override fun areContentsTheSame(
-        oldItem: Pair<String, String>, newItem: Pair<String, String>,
-    ): Boolean {
-        return oldItem == newItem
+        override fun getNewListSize() = newList.size
+
+        override fun areItemsTheSame(oldItemPosition: Int, newItemPosition: Int) =
+            oldList.keyAt(oldItemPosition) == newList.keyAt(oldItemPosition)
+
+        override fun areContentsTheSame(oldItemPosition: Int, newItemPosition: Int) =
+            oldList.valueAt(oldItemPosition) == newList.valueAt(oldItemPosition)
     }
-}

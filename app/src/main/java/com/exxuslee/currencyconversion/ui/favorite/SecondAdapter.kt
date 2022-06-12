@@ -6,50 +6,57 @@ import android.view.ViewGroup
 import android.widget.CheckBox
 import android.widget.RadioButton
 import android.widget.TextView
-import androidx.recyclerview.widget.ListAdapter
+import androidx.collection.arrayMapOf
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.exxuslee.currencyconversion.R
-import com.exxuslee.domain.models.Symbols
 
 
-class SecondAdapter :
-    ListAdapter<Pair<String, String>, SecondAdapter.FirstHolder>(CurrencyDiffCallback()) {
+class SecondAdapter : RecyclerView.Adapter<SecondAdapter.SecondHolder>() {
 
+    private var list = arrayMapOf<String,Double>("1" to 1.1, "2" to 2.2)
+        set(value) {
+            val callBack = CurrencyDiffCallback(list, value)
+            val diffResult = DiffUtil.calculateDiff(callBack)
+            diffResult.dispatchUpdatesTo(this)
+            field = value
+        }
     var onPriceClickListener: ((Int) -> Unit)? = null
-    var selectedPosition = -1
+    private var selectedRadioPosition = -1
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FirstHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SecondHolder {
         val view =
             LayoutInflater.from(parent.context).inflate(R.layout.recycler_second, parent, false)
-        return FirstHolder(view)
+        return SecondHolder(view)
     }
 
-    override fun onBindViewHolder(viewHolder: FirstHolder, position: Int) {
-        viewHolder.xxxName.text = getItem(position).first
-        viewHolder.currencyName.text = getItem(position).second
-        viewHolder.tvCount.setOnClickListener {
+    override fun onBindViewHolder(viewHolder: SecondHolder, position: Int) {
+        viewHolder.xxxName.text = list.keyAt(position)
+        viewHolder.currencyName.text = list.valueAt(position).toString()
+
+        viewHolder.currencyName.setOnClickListener {
             onPriceClickListener?.invoke(position)
-            viewHolder.tvCount.toggle()
+            viewHolder.compoundButton.toggle()
         }
 
-        viewHolder.radioButton.isChecked = position == selectedPosition
+        viewHolder.radioButton.isChecked = position == selectedRadioPosition
+        viewHolder.radioButton.tag = position
         viewHolder.radioButton.setOnCheckedChangeListener { _, b ->
             if (b) {
-                selectedPosition = viewHolder.adapterPosition
+                selectedRadioPosition = viewHolder.adapterPosition
+                onPriceClickListener?.invoke(position)
+                notifyDataSetChanged()
             }
         }
     }
 
-    fun updateAdapter(symbols: Symbols?) {
-        submitList(symbols?.currency?.toList())
-    }
-
-    class FirstHolder(view: View) : RecyclerView.ViewHolder(view) {
+    class SecondHolder(view: View) : RecyclerView.ViewHolder(view) {
         val xxxName: TextView = view.findViewById(R.id.xxxTextView)
         val currencyName: TextView = view.findViewById(R.id.currencyTextView)
-        val tvCount: CheckBox = view.findViewById(R.id.compoundButton)
+        val compoundButton: CheckBox = view.findViewById(R.id.compoundButton)
         val radioButton: RadioButton = view.findViewById(R.id.radioButton)
-
     }
+
+    override fun getItemCount() = list.size
 
 }

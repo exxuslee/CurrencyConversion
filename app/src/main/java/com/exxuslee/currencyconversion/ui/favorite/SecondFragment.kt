@@ -1,11 +1,13 @@
 package com.exxuslee.currencyconversion.ui.favorite
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.exxuslee.currencyconversion.databinding.FragmentSecondBinding
+import com.exxuslee.currencyconversion.ui.price.FirstFragment
 import com.exxuslee.currencyconversion.utils.showIf
 import com.google.android.material.snackbar.Snackbar
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -52,7 +54,11 @@ class SecondFragment : Fragment() {
         }
 
         viewModel.symbols.observe(viewLifecycleOwner) { Symbol ->
-            secondAdapter.updateAdapter(Symbol)
+
+        }
+
+        secondAdapter.onPriceClickListener = {
+            Log.d(FirstFragment.TAG, "position $it")
         }
     }
 
