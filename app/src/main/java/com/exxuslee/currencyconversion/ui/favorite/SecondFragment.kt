@@ -54,6 +54,7 @@ class SecondFragment : Fragment() {
         }
 
         viewModel.symbols.observe(viewLifecycleOwner) { Symbol ->
+            secondAdapter.notifyDataSetChanged()
 
         }
 
