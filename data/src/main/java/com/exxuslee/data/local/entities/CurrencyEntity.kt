@@ -15,4 +15,6 @@ data class CurrencyEntity(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id") val id: Int = 0,
     @ColumnInfo(name = "symbols") val symbols: ArrayMap<String, String>,
+    @ColumnInfo(name = "favorite") val favorite: ArrayList<Boolean>,
+    @ColumnInfo(name = "base") val base: String,
 )

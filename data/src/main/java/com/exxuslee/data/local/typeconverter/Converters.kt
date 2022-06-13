@@ -10,6 +10,7 @@ class Converters {
     private val gson = Gson()
     private val typeRates: Type = object : TypeToken<ArrayMap<String, Double>?>() {}.type
     private val typeCurrency: Type = object : TypeToken<ArrayMap<String, String>?>() {}.type
+    private val typeFavorite: Type = object : TypeToken<ArrayList<Boolean>?>() {}.type
 
     @TypeConverter
     fun fromRates(rates: ArrayMap<String, Double>?): String {
@@ -28,6 +29,16 @@ class Converters {
 
     @TypeConverter
     fun toCurrency(json: String?): ArrayMap<String, String> {
+        return gson.fromJson(json, typeCurrency)
+    }
+
+    @TypeConverter
+    fun fromFavorite(currency: ArrayMap<String, String>?): String {
+        return gson.toJson(currency, typeCurrency)
+    }
+
+    @TypeConverter
+    fun toFavorite(json: String?): ArrayMap<String, String> {
         return gson.fromJson(json, typeCurrency)
     }
 }

@@ -1,7 +1,6 @@
 package com.exxuslee.data.mapper
 
 import com.exxuslee.data.remote.response.CurrencyResponse
-import com.exxuslee.data.remote.response.PriceResponse
 import com.exxuslee.domain.models.Symbols
 
 
@@ -11,10 +10,12 @@ import com.exxuslee.domain.models.Symbols
 
 class CurrencyMapperRemote : BaseMapperRepository<CurrencyResponse, Symbols> {
     override fun transform(type: CurrencyResponse): Symbols = Symbols(
-        type.symbols
+        symbols = type.symbols,
+        favorite = arrayListOf(),
+        base = ""
     )
 
     override fun transformToRepository(type: Symbols): CurrencyResponse = CurrencyResponse(
-        symbols = type.currency
+        symbols = type.symbols
     )
 }

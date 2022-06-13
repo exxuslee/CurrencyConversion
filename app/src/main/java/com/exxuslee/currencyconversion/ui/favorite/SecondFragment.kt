@@ -55,7 +55,7 @@ class SecondFragment : Fragment() {
 
         viewModel.symbols.observe(viewLifecycleOwner) {
             if (it != null) {
-                secondAdapter.list = it.currency
+                secondAdapter.list = it.symbols
             }
         }
 

@@ -7,6 +7,7 @@ import androidx.collection.ArrayMap
  */
 
 data class Symbols(
-    val currency: ArrayMap<String, String>,
-//    val favorite: ArrayList<Boolean>,
+    val symbols: ArrayMap<String, String>,
+    val favorite: ArrayList<Boolean>,
+    val base: String,
 )
