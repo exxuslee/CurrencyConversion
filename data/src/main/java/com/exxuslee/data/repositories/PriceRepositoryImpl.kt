@@ -69,7 +69,9 @@ class PriceRepositoryImpl(
                     if (remoteData != null) {
                         CurrencyDao.saveCurrency(
                             CurrencyEntity(
-                                symbols = remoteData.symbols
+                                symbols = remoteData.symbols,
+                                favorite = arrayListOf(),
+                                base = ""
                             )
                         )
                         Result.Success(mapperRemote.transform(remoteData))

@@ -33,12 +33,12 @@ class Converters {
     }
 
     @TypeConverter
-    fun fromFavorite(currency: ArrayMap<String, String>?): String {
-        return gson.toJson(currency, typeCurrency)
+    fun fromFavorite(currency: ArrayList<Boolean>?): String {
+        return gson.toJson(currency, typeFavorite)
     }
 
     @TypeConverter
-    fun toFavorite(json: String?): ArrayMap<String, String> {
-        return gson.fromJson(json, typeCurrency)
+    fun toFavorite(json: String?): ArrayList<Boolean> {
+        return gson.fromJson(json, typeFavorite)
     }
 }
