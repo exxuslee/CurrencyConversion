@@ -1,22 +1,17 @@
 package com.exxuslee.currencyconversion.ui.favorite
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.CheckBox
-import android.widget.RadioButton
-import android.widget.TextView
 import androidx.collection.ArrayMap
 import androidx.collection.arrayMapOf
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
-import com.exxuslee.currencyconversion.R
 import com.exxuslee.currencyconversion.databinding.RecyclerSecondBinding
 
 
 class SecondAdapter : RecyclerView.Adapter<SecondAdapter.ViewHolder>() {
 
-    var list: ArrayMap<String, String> = arrayMapOf()
+    private var list: ArrayMap<String, String> = arrayMapOf()
     private var lastSelectedPosition = -1
 
     var onPriceClickListener: ((Int) -> Unit)? = null
@@ -36,6 +31,8 @@ class SecondAdapter : RecyclerView.Adapter<SecondAdapter.ViewHolder>() {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.binding.apply {
+            xxxTextView.text = list.keyAt(position)
+            currencyTextView.text = list.valueAt(position).toString()
             radioButton.setOnClickListener {
                 lastSelectedPosition = holder.adapterPosition
                 notifyDataSetChanged()
