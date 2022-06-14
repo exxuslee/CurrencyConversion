@@ -11,6 +11,7 @@ import com.exxuslee.currencyconversion.ui.price.FirstFragment
 import com.exxuslee.currencyconversion.utils.showIf
 import com.google.android.material.snackbar.Snackbar
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.ext.scope
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
