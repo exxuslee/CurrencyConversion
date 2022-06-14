@@ -9,5 +9,5 @@ import org.koin.dsl.module
  */
 
 val repositoryModule = module {
-    factory<PriceRepository> { PriceRepositoryImpl(get(), get()) }
+    factory<PriceRepository> { PriceRepositoryImpl(get(), get(), get()) }
 }

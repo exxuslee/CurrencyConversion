@@ -1,8 +1,8 @@
 package com.exxuslee.data.di
 
 import androidx.room.Room
-import com.exxuslee.data.utils.Constants.PRICE_DB
 import com.exxuslee.data.local.PriceDatabase
+import com.exxuslee.data.utils.Constants.PRICE_DB
 import org.koin.android.ext.koin.androidContext
 import org.koin.dsl.module
 
@@ -17,4 +17,5 @@ val databaseModule = module {
     }
 
     factory { get<PriceDatabase>().priceDao }
+    factory { get<PriceDatabase>().currencyDao }
 }

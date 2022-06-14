@@ -1,7 +1,5 @@
 package com.exxuslee.domain.utils
 
-import java.lang.Exception
-
 /**
  * A generic class that holds a value with its loading status.
  * @param <T>

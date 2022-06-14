@@ -1,12 +1,12 @@
 package com.exxuslee.currencyconversion.di
 
+import com.exxuslee.currencyconversion.ui.favorite.SecondAdapter
+import com.exxuslee.currencyconversion.ui.favorite.SecondFragmentViewModel
+import com.exxuslee.currencyconversion.ui.price.FistFragmentViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
-/**
- * Created by Mayokun Adeniyi on 24/07/2020.
- */
-
 val presentationModule = module {
-    viewModel { get() }
+    viewModel { FistFragmentViewModel(get()) }
+    viewModel { SecondFragmentViewModel(get()) }
 }

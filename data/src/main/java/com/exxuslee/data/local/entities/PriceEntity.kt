@@ -1,19 +1,21 @@
 package com.exxuslee.data.local.entities
 
+import androidx.collection.ArrayMap
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.exxuslee.data.utils.Constants.PRICE_TABLE_NAME
+import com.exxuslee.data.utils.Constants.PRICE_TABLE
 
 /**
  * Created by Exxus Lee on 22/07/2020.
  */
 
-@Entity(tableName = PRICE_TABLE_NAME)
+@Entity(tableName = PRICE_TABLE)
 data class PriceEntity(
 
-    @PrimaryKey(autoGenerate = true) val id: Int = 0,
-    val base: String = "",
-    val date: String = "",
-    //val rate: Map<String, Double> = mapOf(Pair("", 0.0)),
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "id") val id: Int = 0,
+    @ColumnInfo(name = "base") val base: String? = "",
+    @ColumnInfo(name = "date") val date: String? = "",
+    @ColumnInfo(name = "rates") val rates: ArrayMap<String, Double>,
 )

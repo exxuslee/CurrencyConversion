@@ -16,21 +16,23 @@ class PriceUseCaseTest {
 
     // region helper fields
     @Mock
-    private lateinit var PriceRepository: PriceRepository
+    private lateinit var priceRepository: PriceRepository
     private lateinit var getPrice: GetPriceUseCase.Base
+    private val getBase = "false"
+    private val getSymbols = "12345"
     private val getFromRemote: Boolean = false
     // endregion helper fields
 
     @Before
-    fun setUp(){
-        getPrice = GetPriceUseCase.Base(PriceRepository)
+    fun setUp() {
+        getPrice = GetPriceUseCase.Base(priceRepository)
     }
 
     @Test
-    fun getPriceUseCase_calls_PriceRepository(){
+    fun getPriceUseCase_calls_PriceRepository() {
         runBlockingTest {
-            getPrice(getFromRemote)
-            Mockito.verify(PriceRepository).getPrice(getFromRemote)
+            getPrice(getBase, getSymbols, getFromRemote)
+            Mockito.verify(priceRepository).getPrice(getBase, getSymbols, getFromRemote)
         }
     }
 }
