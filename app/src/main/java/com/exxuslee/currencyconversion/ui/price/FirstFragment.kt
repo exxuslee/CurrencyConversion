@@ -19,7 +19,6 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class FirstFragment : Fragment() {
 
     private val viewModelFirst: FistFragmentViewModel by viewModel()
-    private val viewModelSecond: SecondFragmentViewModel by viewModel()
 
     private var _binding: FragmentFirstBinding? = null
     private val binding get() = _binding!!
@@ -56,10 +55,6 @@ class FirstFragment : Fragment() {
         viewModelFirst.price.observe(viewLifecycleOwner) { Price ->
  //           binding.textBase.text = Price?.date
             firstAdapter.updateAdapter(Price)
-        }
-
-        viewModelSecond.symbols.observe(viewLifecycleOwner) { Symbols ->
-            binding.textBase.text = Symbols?.base
         }
 
         firstAdapter.onPriceClickListener = {

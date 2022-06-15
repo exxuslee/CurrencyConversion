@@ -8,13 +8,13 @@ import androidx.lifecycle.viewModelScope
 import com.exxuslee.currencyconversion.ui.price.FirstFragment
 import com.exxuslee.currencyconversion.utils.asLiveData
 import com.exxuslee.domain.models.Symbols
-import com.exxuslee.domain.usecases.GetCurrenciesUseCase
+import com.exxuslee.domain.usecases.CurrenciesUseCase
 import com.exxuslee.domain.utils.Result
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class SecondFragmentViewModel(private val getCurrenciesUseCase: GetCurrenciesUseCase.Base) :
+class SecondFragmentViewModel(private val currenciesUseCase: CurrenciesUseCase.Base) :
     ViewModel() {
     private val _symbols = MutableLiveData<Symbols?>()
     val symbols = _symbols.asLiveData()
@@ -29,7 +29,7 @@ class SecondFragmentViewModel(private val getCurrenciesUseCase: GetCurrenciesUse
         _isLoading.postValue(true)
         viewModelScope.launch {
             when (val result =
-                withContext(Dispatchers.IO) { getCurrenciesUseCase(true) }) {
+                withContext(Dispatchers.IO) { currenciesUseCase.load(true) }) {
                 is Result.Success -> {
                     _isLoading.postValue(false)
                     if (result.data != null) {
@@ -53,7 +53,7 @@ class SecondFragmentViewModel(private val getCurrenciesUseCase: GetCurrenciesUse
         _isLoading.postValue(true)
         viewModelScope.launch {
             when (val result =
-                withContext(Dispatchers.IO) { getCurrenciesUseCase(false) }) {
+                withContext(Dispatchers.IO) { currenciesUseCase.load(false) }) {
                 is Result.Success -> {
                     _isLoading.postValue(false)
                     if (result.data != null) {

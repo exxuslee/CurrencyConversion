@@ -1,6 +1,6 @@
 package com.exxuslee.domain.di
 
-import com.exxuslee.domain.usecases.GetCurrenciesUseCase
+import com.exxuslee.domain.usecases.CurrenciesUseCase
 import com.exxuslee.domain.usecases.GetPriceUseCase
 import org.koin.dsl.module
 
@@ -10,5 +10,5 @@ import org.koin.dsl.module
 
 val interactionModule = module {
     factory<GetPriceUseCase.Base> { GetPriceUseCase.Base(get()) }
-    factory<GetCurrenciesUseCase.Base> { GetCurrenciesUseCase.Base(get()) }
+    factory<CurrenciesUseCase.Base> { CurrenciesUseCase.Base(get()) }
 }
