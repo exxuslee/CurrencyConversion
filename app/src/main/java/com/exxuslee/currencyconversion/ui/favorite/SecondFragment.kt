@@ -11,7 +11,6 @@ import com.exxuslee.currencyconversion.ui.price.FirstFragment
 import com.exxuslee.currencyconversion.utils.showIf
 import com.google.android.material.snackbar.Snackbar
 import org.koin.androidx.viewmodel.ext.android.viewModel
-import org.koin.ext.scope
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
@@ -60,14 +59,17 @@ class SecondFragment : Fragment() {
             }
         }
 
-        secondAdapter.onPriceClickListener = {
-            Log.d(FirstFragment.TAG, "position $it")
-        }
-
-        secondAdapter.onRadioClickListener = {
-//            secondAdapter.notifyDataSetChanged()
-
-        }
+        secondAdapter.onAddPriceClickListener =
+            {
+            }
+        secondAdapter.onDelPriceClickListener =
+            {
+                Log.d(FirstFragment.TAG, "position $it")
+            }
+        secondAdapter.onRadioClickListener =
+            {
+                viewModel.radioSelect(it)
+            }
     }
 
     override fun onDestroyView() {
