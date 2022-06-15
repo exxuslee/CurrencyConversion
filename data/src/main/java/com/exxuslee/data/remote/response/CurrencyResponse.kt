@@ -14,6 +14,6 @@ data class CurrencyResponse(
 fun CurrencyResponse.toEntity() =
     CurrencyEntity(
         symbols = symbols,
-        favorite = arrayListOf(),
+        favorite = ArrayMap<String, Boolean>(),
         base = ""
     )

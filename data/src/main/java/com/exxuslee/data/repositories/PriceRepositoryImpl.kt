@@ -1,5 +1,6 @@
 package com.exxuslee.data.repositories
 
+import androidx.collection.ArrayMap
 import com.exxuslee.data.local.dao.CurrencyDao
 import com.exxuslee.data.local.dao.PriceDao
 import com.exxuslee.data.local.entities.CurrencyEntity
@@ -70,7 +71,7 @@ class PriceRepositoryImpl(
                         CurrencyDao.saveCurrency(
                             CurrencyEntity(
                                 symbols = remoteData.symbols,
-                                favorite = arrayListOf(),
+                                favorite = ArrayMap<String, Boolean>(),
                                 base = ""
                             )
                         )
