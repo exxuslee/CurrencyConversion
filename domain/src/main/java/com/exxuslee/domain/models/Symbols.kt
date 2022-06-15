@@ -8,6 +8,6 @@ import androidx.collection.ArrayMap
 
 data class Symbols(
     val symbols: ArrayMap<String, String>,
-    val favorite: ArrayList<Boolean>,
+    val favorite: ArrayMap<String, Boolean>,
     val base: String,
 )

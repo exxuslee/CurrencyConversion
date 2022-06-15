@@ -11,10 +11,12 @@ import com.exxuslee.currencyconversion.databinding.RecyclerSecondBinding
 
 class SecondAdapter : RecyclerView.Adapter<SecondAdapter.ViewHolder>() {
 
-    private var list: ArrayMap<String, String> = arrayMapOf()
+    private var radioList: ArrayMap<String, String> = arrayMapOf()
+
     private var lastSelectedPosition = -1
 
-    var onPriceClickListener: ((Int) -> Unit)? = null
+    var onDelPriceClickListener: ((Int) -> Unit)? = null
+    var onAddPriceClickListener: ((Int) -> Unit)? = null
     var onRadioClickListener: ((Int) -> Unit)? = null
 
     inner class ViewHolder(val binding: RecyclerSecondBinding) :
@@ -31,22 +33,27 @@ class SecondAdapter : RecyclerView.Adapter<SecondAdapter.ViewHolder>() {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.binding.apply {
-            xxxTextView.text = list.keyAt(position)
-            currencyTextView.text = list.valueAt(position).toString()
+            xxxTextView.text = radioList.keyAt(position)
+            currencyTextView.text = radioList.valueAt(position).toString()
             radioButton.setOnClickListener {
                 lastSelectedPosition = holder.adapterPosition
+                onRadioClickListener?.invoke(position)
                 notifyDataSetChanged()
             }
             radioButton.isChecked = lastSelectedPosition == position
+            compoundButton.setOnClickListener {
+                if (compoundButton.isChecked) onAddPriceClickListener?.invoke(position)
+                else onDelPriceClickListener?.invoke(position)
+            }
         }
     }
 
-    override fun getItemCount(): Int = list.size
+    override fun getItemCount(): Int = radioList.size
 
     fun setData(newList: ArrayMap<String, String>) {
-        val toDoDiffUtil = CurrencyDiffCallback(list, newList)
+        val toDoDiffUtil = CurrencyDiffCallback(radioList, newList)
         val toDoDiffResult = DiffUtil.calculateDiff(toDoDiffUtil)
-        this.list = newList
+        this.radioList = newList
         toDoDiffResult.dispatchUpdatesTo(this)
     }
 }

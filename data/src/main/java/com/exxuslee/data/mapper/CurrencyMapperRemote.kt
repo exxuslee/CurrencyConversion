@@ -1,5 +1,6 @@
 package com.exxuslee.data.mapper
 
+import androidx.collection.ArrayMap
 import com.exxuslee.data.remote.response.CurrencyResponse
 import com.exxuslee.domain.models.Symbols
 
@@ -11,7 +12,7 @@ import com.exxuslee.domain.models.Symbols
 class CurrencyMapperRemote : BaseMapperRepository<CurrencyResponse, Symbols> {
     override fun transform(type: CurrencyResponse): Symbols = Symbols(
         symbols = type.symbols,
-        favorite = arrayListOf(),
+        favorite = ArrayMap<String,Boolean>(),
         base = ""
     )
 
