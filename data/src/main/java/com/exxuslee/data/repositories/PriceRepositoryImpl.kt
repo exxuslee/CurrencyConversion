@@ -94,4 +94,9 @@ class PriceRepositoryImpl(
             }
         }
     }
+
+    override suspend fun saveCurrencies(symbols: Symbols) {
+        val mapperLocal = CurrencyMapperLocal()
+        CurrencyDao.saveCurrency(mapperLocal.transformToRepository(symbols))
+    }
 }
