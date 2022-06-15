@@ -13,7 +13,6 @@ import com.exxuslee.domain.utils.Result
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import org.koin.ext.scope
 
 class SecondFragmentViewModel(private val getCurrenciesUseCase: GetCurrenciesUseCase.Base) :
     ViewModel() {
@@ -71,8 +70,8 @@ class SecondFragmentViewModel(private val getCurrenciesUseCase: GetCurrenciesUse
 
     fun radioSelect(num: Int) {
         _symbols.postValue(Symbols(
-            symbols.value?.symbols?: ArrayMap(),
-            symbols.value?.favorite?: ArrayMap(),
+            _symbols.value?.symbols?: ArrayMap(),
+            _symbols.value?.favorite?: ArrayMap(),
             "ALL"))
         Log.d(FirstFragment.TAG, "position $num")
     }

@@ -13,13 +13,13 @@
 
 
         <TextView
-            android:id="@+id/textview_first"
-            android:layout_width="wrap_content"
+            android:id="@+id/text_base"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/lorem_ipsum"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="parent" />
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/error_text"
@@ -56,8 +56,9 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.937"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textview_first"
+            app:layout_constraintTop_toBottomOf="@+id/text_base"
             app:layout_constraintVertical_bias="1.0"
             tools:listitem="@layout/recycler_fist" />
 

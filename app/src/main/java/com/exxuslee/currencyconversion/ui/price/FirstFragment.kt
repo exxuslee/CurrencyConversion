@@ -6,10 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
-import com.exxuslee.currencyconversion.R
 import com.exxuslee.currencyconversion.databinding.FragmentFirstBinding
+import com.exxuslee.currencyconversion.ui.favorite.SecondFragmentViewModel
 import com.exxuslee.currencyconversion.utils.showIf
+import com.exxuslee.domain.models.Symbols
 import com.google.android.material.snackbar.Snackbar
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -18,7 +18,9 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
  */
 class FirstFragment : Fragment() {
 
-    private val viewModel: FistFragmentViewModel by viewModel()
+    private val viewModelFirst: FistFragmentViewModel by viewModel()
+    private val viewModelSecond: SecondFragmentViewModel by viewModel()
+
     private var _binding: FragmentFirstBinding? = null
     private val binding get() = _binding!!
     private lateinit var firstAdapter: FirstAdapter
@@ -27,7 +29,7 @@ class FirstFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?,
     ): View {
 
-        viewModel.localPrice()
+        viewModelFirst.localPrice()
         _binding = FragmentFirstBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -38,11 +40,11 @@ class FirstFragment : Fragment() {
         firstAdapter = FirstAdapter()
         binding.recyclerView.adapter = firstAdapter
 
-        viewModel.isLoading.observe(viewLifecycleOwner) { state ->
+        viewModelFirst.isLoading.observe(viewLifecycleOwner) { state ->
             binding.progressBar.showIf { state }
         }
 
-        viewModel.dataFetchState.observe(viewLifecycleOwner) { state ->
+        viewModelFirst.dataFetchState.observe(viewLifecycleOwner) { state ->
             if (!state) {
                 binding.errorText.visibility = View.VISIBLE
                 Snackbar.make(requireView(),
@@ -51,11 +53,14 @@ class FirstFragment : Fragment() {
             }
         }
 
-        viewModel.price.observe(viewLifecycleOwner) { Price ->
-            binding.textviewFirst.text = Price?.date
+        viewModelFirst.price.observe(viewLifecycleOwner) { Price ->
+ //           binding.textBase.text = Price?.date
             firstAdapter.updateAdapter(Price)
         }
 
+        viewModelSecond.symbols.observe(viewLifecycleOwner) { Symbols ->
+            binding.textBase.text = Symbols?.base
+        }
 
         firstAdapter.onPriceClickListener = {
             Log.d(TAG, "position $it")
