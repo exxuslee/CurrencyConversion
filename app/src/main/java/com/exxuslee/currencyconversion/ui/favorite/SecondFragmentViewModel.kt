@@ -70,8 +70,8 @@ class SecondFragmentViewModel(private val currenciesUseCase: CurrenciesUseCase.B
 
     fun radioSelect(num: Int) {
         _symbols.postValue(Symbols(
-            _symbols.value?.symbols?: ArrayMap(),
-            _symbols.value?.favorite?: ArrayMap(),
+            _symbols.value?.symbols ?: ArrayMap(),
+            _symbols.value?.favorite ?: ArrayMap(),
             "ALL"))
         Log.d(FirstFragment.TAG, "position $num")
     }
