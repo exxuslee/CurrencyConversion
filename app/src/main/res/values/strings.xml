@@ -11,4 +11,5 @@
         Hello
     </string>
     <string name="error_message">error_message</string>
+    <string name="btnApply">Apply</string>
 </resources>

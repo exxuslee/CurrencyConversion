@@ -57,6 +57,8 @@ class FirstFragment : Fragment() {
             firstAdapter.updateAdapter(Price)
         }
 
+        binding.textBase.text = arguments?.getString("base")
+
         firstAdapter.onPriceClickListener = {
             Log.d(TAG, "position $it")
         }

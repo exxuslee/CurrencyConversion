@@ -14,6 +14,10 @@
         <action
             android:id="@+id/action_FirstFragment_to_SecondFragment"
             app:destination="@id/SecondFragment" />
+        <argument
+            android:name="base"
+            app:argType="string"
+            android:defaultValue="nav Hello" />
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
