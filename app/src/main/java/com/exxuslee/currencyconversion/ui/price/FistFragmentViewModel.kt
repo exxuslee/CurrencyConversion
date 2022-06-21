@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.exxuslee.currencyconversion.utils.asLiveData
 import com.exxuslee.domain.models.Price
+import com.exxuslee.domain.models.Symbols
 import com.exxuslee.domain.usecases.GetPriceUseCase
 import com.exxuslee.domain.utils.Result
 import kotlinx.coroutines.Dispatchers
@@ -14,6 +15,9 @@ import kotlinx.coroutines.withContext
 class FistFragmentViewModel(private val getCardInfoUseCase: GetPriceUseCase.Base) : ViewModel() {
     private val _price = MutableLiveData<Price?>()
     val price = _price.asLiveData()
+
+    private val _symbols = MutableLiveData<Symbols?>()
+    val symbols = _symbols.asLiveData()
 
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading = _isLoading.asLiveData()

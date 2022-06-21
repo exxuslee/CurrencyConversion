@@ -70,6 +70,10 @@ class SecondFragment : Fragment() {
             {
                 viewModel.radioSelect(it)
             }
+
+        binding.btnApply.setOnClickListener {
+            viewModel.save(this)
+        }
     }
 
     override fun onDestroyView() {
