@@ -16,9 +16,6 @@ class FistFragmentViewModel(private val getCardInfoUseCase: GetPriceUseCase.Base
     private val _price = MutableLiveData<Price?>()
     val price = _price.asLiveData()
 
-    private val _symbols = MutableLiveData<Symbols?>()
-    val symbols = _symbols.asLiveData()
-
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading = _isLoading.asLiveData()
 

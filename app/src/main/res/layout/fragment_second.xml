@@ -57,17 +57,16 @@
 
     <TextView
         android:id="@+id/error_text"
-        android:layout_width="409dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:lineSpacingExtra="3dp"
         android:text="@string/error_message"
         android:textAlignment="center"
         android:textColor="@color/primaryDarkColor"
-        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="@+id/nestedScrollView"
-        app:layout_constraintTop_toBottomOf="@+id/progressBar"
-        tools:layout_editor_absoluteX="1dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

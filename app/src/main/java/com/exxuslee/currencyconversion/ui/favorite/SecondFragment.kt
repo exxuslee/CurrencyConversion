@@ -59,12 +59,9 @@ class SecondFragment : Fragment() {
             }
         }
 
-        secondAdapter.onAddPriceClickListener =
-            {
-            }
-        secondAdapter.onDelPriceClickListener =
-            {
-                Log.d(FirstFragment.TAG, "position $it")
+        secondAdapter.onPriceClickListener =
+            { pos: Int, check: Boolean ->
+                viewModel.check(pos, check)
             }
         secondAdapter.onRadioClickListener =
             {
