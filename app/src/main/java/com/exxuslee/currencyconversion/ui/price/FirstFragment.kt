@@ -58,6 +58,7 @@ class FirstFragment : Fragment() {
         }
 
         binding.textBase.text = arguments?.getString("base")
+        binding.textBase.text = arguments?.getSerializable("symbols").toString()
 
         firstAdapter.onPriceClickListener = {
             Log.d(TAG, "position $it")

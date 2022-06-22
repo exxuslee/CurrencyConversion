@@ -15,8 +15,7 @@ class SecondAdapter : RecyclerView.Adapter<SecondAdapter.ViewHolder>() {
 
     private var lastSelectedPosition = -1
 
-    var onDelPriceClickListener: ((Int) -> Unit)? = null
-    var onAddPriceClickListener: ((Int) -> Unit)? = null
+    var onPriceClickListener: ((Int, Boolean) -> Unit)? = null
     var onRadioClickListener: ((Int) -> Unit)? = null
 
     inner class ViewHolder(val binding: RecyclerSecondBinding) :
@@ -44,8 +43,8 @@ class SecondAdapter : RecyclerView.Adapter<SecondAdapter.ViewHolder>() {
             }
             radioButton.isChecked = lastSelectedPosition == position
             compoundButton.setOnClickListener {
-                if (compoundButton.isChecked) onAddPriceClickListener?.invoke(position)
-                else onDelPriceClickListener?.invoke(position)
+                if (compoundButton.isChecked) onPriceClickListener?.invoke(position, true)
+                else onPriceClickListener?.invoke(position, false)
             }
         }
     }
