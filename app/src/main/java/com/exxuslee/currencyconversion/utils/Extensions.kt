@@ -1,4 +1,4 @@
-package com.mayokunadeniyi.cardinfofinder.utils
+package com.exxuslee.currencyconversion.utils
 
 import android.view.View
 import androidx.lifecycle.LiveData
