@@ -12,7 +12,7 @@ data class Symbols(
     data class Symbol(
         val xxx: String,
         val name: String,
-        val base: Boolean,
-        val check: Boolean,
+        var base: Boolean,
+        var check: Boolean,
     )
 }

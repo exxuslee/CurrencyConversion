@@ -73,28 +73,24 @@ class SecondFragmentViewModel(private val currenciesUseCase: CurrenciesUseCase.B
     }
 
     fun radioSelect(num: Int) {
-        _symbols.postValue(Symbols(
-            _symbols.value?.symbols ?: ArrayMap(),
-            _symbols.value?.favorite ?: ArrayMap(),
-            symbols.value?.symbols?.valueAt(num) ?: "EUR"))
-        Log.d(FirstFragment.TAG, "position $num")
+        val asd: List<Symbols.Symbol> = symbols.value?.symbol!!
+        asd.map { it.base = false }
+        asd[num].base = true
+        _symbols.postValue(Symbols(asd))
 
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
-                currenciesUseCase.save(Symbols(
-                    xxx = _symbols.value?.get(num)?.xxx ?: "",
-                    name = _symbols.value?.get(num)?.name ?: "",
-                    check = true,
-                    base = false
-                ))
+                symbols.value?.let {
+                    currenciesUseCase.save(it)
+                }
             }
         }
     }
 
     fun checkSelect(pos: Int, check: Boolean) {
-        _symbols.postValue(
-
-        )
+        val asd: List<Symbols.Symbol> = symbols.value?.symbol!!
+        asd[pos].check = check
+        _symbols.postValue(Symbols(asd))
     }
 
     fun save(fragment: Fragment) {
@@ -103,7 +99,7 @@ class SecondFragmentViewModel(private val currenciesUseCase: CurrenciesUseCase.B
         val check = ""
         symbols.value?.symbol?.forEach {
             if (it.base) base = it.name
-            if (it.check) check.plus(it.xxx+", ")
+            if (it.check) check.plus(it.xxx + ", ")
         }
 
         bundle.putString("base", base)
