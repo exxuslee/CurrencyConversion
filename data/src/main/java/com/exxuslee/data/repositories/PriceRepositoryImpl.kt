@@ -1,12 +1,9 @@
 package com.exxuslee.data.repositories
 
-import androidx.collection.ArrayMap
 import com.exxuslee.data.local.dao.CurrencyDao
 import com.exxuslee.data.local.dao.PriceDao
-import com.exxuslee.data.local.entities.CurrencyEntity
 import com.exxuslee.data.local.entities.PriceEntity
-import com.exxuslee.data.mapper.CurrencyMapperLocal
-import com.exxuslee.data.mapper.CurrencyMapperRemote
+import com.exxuslee.data.mapper.CurrencyMapper
 import com.exxuslee.data.mapper.PriceMapperLocal
 import com.exxuslee.data.mapper.PriceMapperRemote
 import com.exxuslee.data.remote.api.PriceApiService
@@ -60,20 +57,16 @@ class PriceRepositoryImpl(
         }
     }
 
-    override suspend fun getCurrencies(getFromRemote: Boolean): Result<Symbols> {
+    override suspend fun getCurrencies(getFromRemote: Boolean): Result<List<Symbols>> {
         return when {
             getFromRemote -> {
                 val priceResult = PriceApi.getCurrency()
                 if (priceResult.isSuccessful) {
-                    val mapperRemote = CurrencyMapperRemote()
+                    //val mapperRemote = MapperRemote()
                     val remoteData = priceResult.body()
                     if (remoteData != null) {
                         CurrencyDao.saveCurrency(
-                            CurrencyEntity(
-                                symbols = remoteData.symbols,
-                                favorite = ArrayMap<String, Boolean>(),
-                                base = ""
-                            )
+                            mapperRemote.transformToRepository(remoteData)
                         )
                         Result.Success(mapperRemote.transform(remoteData))
                     } else {
@@ -88,15 +81,15 @@ class PriceRepositoryImpl(
                 if (localData == null) {
                     Result.Success(null)
                 } else {
-                    val mapperLocal = CurrencyMapperLocal()
-                    Result.Success(mapperLocal.transform(localData))
+                    val currencyMapper = CurrencyMapper()
+                    Result.Success(currencyMapper.transform(localData))
                 }
             }
         }
     }
 
     override suspend fun saveCurrencies(symbols: Symbols) {
-        val mapperLocal = CurrencyMapperLocal()
-        CurrencyDao.saveCurrency(mapperLocal.transformToRepository(symbols))
+        val currencyMapper = CurrencyMapper()
+        CurrencyDao.saveCurrency(currencyMapper.transformToRepository(symbols))
     }
 }

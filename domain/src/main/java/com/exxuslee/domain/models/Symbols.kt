@@ -8,7 +8,8 @@ import java.io.Serializable
  */
 
 data class Symbols(
-    val symbols: ArrayMap<String, String>,
-    val favorite: ArrayMap<String, Boolean>,
-    val base: String,
+    val xxx: String,
+    val name: String,
+    val base: Boolean,
+    val check: Boolean,
 ): Serializable

@@ -14,7 +14,9 @@ import com.exxuslee.data.utils.Constants
 data class CurrencyEntity(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id") val id: Int = 0,
-    @ColumnInfo(name = "symbols") val symbols: ArrayMap<String, String>,
-    @ColumnInfo(name = "favorite") val favorite: ArrayMap<String, Boolean>,
-    @ColumnInfo(name = "base") val base: String,
+    @ColumnInfo(name = "xxx") val xxx: String,
+    @ColumnInfo(name = "name") val name: String,
+    @ColumnInfo(name = "base") val base: Boolean,
+    @ColumnInfo(name = "check") val check: Boolean,
+
 )
