@@ -2,16 +2,15 @@ package com.exxuslee.currencyconversion.ui.favorite
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.collection.ArrayMap
-import androidx.collection.arrayMapOf
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.exxuslee.currencyconversion.databinding.RecyclerSecondBinding
+import com.exxuslee.domain.models.Symbols
 
 
 class SecondAdapter : RecyclerView.Adapter<SecondAdapter.ViewHolder>() {
 
-    private var radioList: ArrayMap<String, String> = arrayMapOf()
+    private var radioList: List<Symbols.Symbol> = listOf()
 
     private var lastSelectedPosition = -1
 
@@ -32,8 +31,8 @@ class SecondAdapter : RecyclerView.Adapter<SecondAdapter.ViewHolder>() {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.binding.apply {
-            xxxTextView.text = radioList.keyAt(position)
-            currencyTextView.text = radioList.valueAt(position).toString()
+            xxxTextView.text = radioList[position].xxx
+            currencyTextView.text = radioList[position].name
             radioButton.setOnClickListener {
                 if (lastSelectedPosition != holder.adapterPosition) {
                     lastSelectedPosition = holder.adapterPosition
@@ -51,7 +50,7 @@ class SecondAdapter : RecyclerView.Adapter<SecondAdapter.ViewHolder>() {
 
     override fun getItemCount(): Int = radioList.size
 
-    fun setData(newList: ArrayMap<String, String>) {
+    fun setData(newList: List<Symbols.Symbol>) {
         val toDoDiffUtil = CurrencyDiffCallback(radioList, newList)
         val toDoDiffResult = DiffUtil.calculateDiff(toDoDiffUtil)
         this.radioList = newList

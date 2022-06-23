@@ -1,10 +1,11 @@
 package com.exxuslee.currencyconversion.ui.favorite
 
 import androidx.recyclerview.widget.DiffUtil
+import com.exxuslee.domain.models.Symbols
 
 class CurrencyDiffCallback(
-    private val oldList: Map<String, String>,
-    private val newList: Map<String, String>,
+    private val oldList: List<Symbols.Symbol>,
+    private val newList: List<Symbols.Symbol>,
 ) : DiffUtil.Callback() {
 
     override fun getOldListSize(): Int {
