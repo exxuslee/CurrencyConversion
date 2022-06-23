@@ -17,7 +17,7 @@ interface CurrencyDao {
     suspend fun saveCurrency(Currency: CurrencyEntity)
 
     @Query("SELECT * FROM currency_table")
-    suspend fun getCurrency(): CurrencyEntity?
+    suspend fun getCurrency(): List<CurrencyEntity>?
 
     @Query("DELETE FROM currency_table")
     suspend fun deleteAllCurrency()
