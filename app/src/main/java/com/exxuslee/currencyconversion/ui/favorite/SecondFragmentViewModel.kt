@@ -2,7 +2,6 @@ package com.exxuslee.currencyconversion.ui.favorite
 
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import androidx.collection.ArrayMap
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
@@ -90,14 +89,14 @@ class SecondFragmentViewModel(private val currenciesUseCase: CurrenciesUseCase.B
         }
     }
 
-    fun save (fragment: Fragment) {
+    fun checkSelect(pos: Int, check: Boolean) {
+        _symbols.value?.favorite?.put(pos.toString(), check)
+    }
+
+    fun save(fragment: Fragment) {
         val bundle = Bundle()
         bundle.putString("base", symbols.value?.base)
         bundle.putSerializable("symbols", _symbols.value)
         findNavController(fragment).navigate(R.id.FirstFragment, bundle)
-    }
-
-    fun check(pos: Int, check: Boolean) {
-        _symbols.value?.favorite?.put(pos.toString(), check)
     }
 }
