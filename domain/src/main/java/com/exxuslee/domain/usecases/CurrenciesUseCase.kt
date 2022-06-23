@@ -5,11 +5,11 @@ import com.exxuslee.domain.repositories.PriceRepository
 import com.exxuslee.domain.utils.Result
 
 interface CurrenciesUseCase {
-    suspend fun load (getFromRemote: Boolean): Result<List<Symbols>>
+    suspend fun load (getFromRemote: Boolean): Result<Symbols>
     suspend fun save (symbols: Symbols)
 
     class Base(private val repository: PriceRepository) : CurrenciesUseCase {
-        override suspend fun load(getFromRemote: Boolean) =
+        override suspend fun load(getFromRemote: Boolean): Result<Symbols> =
             repository.getCurrencies(getFromRemote)
 
         override suspend fun save(symbols: Symbols) = repository.saveCurrencies(symbols)

@@ -5,37 +5,38 @@ import com.exxuslee.data.remote.response.CurrencyResponse
 import com.exxuslee.domain.models.Symbols
 
 
-class CurrencyMapper : BaseMapper<List<Symbols>, List<CurrencyEntity>, CurrencyResponse> {
+class CurrencyMapper : BaseMapper<Symbols, List<CurrencyEntity>, CurrencyResponse> {
 
-    override fun domainToLocal(type: List<Symbols>): List<CurrencyEntity> {
+    override fun domainToLocal(type: Symbols): List<CurrencyEntity> {
         val asd: ArrayList<CurrencyEntity> = arrayListOf()
-        type.map { Symbols ->
+        type.symbol.map { Symbol ->
             asd.add(CurrencyEntity(
-                xxx = Symbols.xxx,
-                name = Symbols.name,
-                base = Symbols.base,
-                check = Symbols.check
+                xxx = Symbol.xxx,
+                name = Symbol.name,
+                base = Symbol.base,
+                check = Symbol.check
             ))
         }
         return asd
     }
 
-    override fun localToDomain(type: List<CurrencyEntity>): List<Symbols> {
-        val asd: ArrayList<Symbols> = arrayListOf()
+    override fun localToDomain(type: List<CurrencyEntity>): Symbols {
+        val asd: ArrayList<Symbols.Symbol> = arrayListOf()
         type.map { CurrencyEntity ->
-            asd.add(Symbols(
+            asd.add(Symbols.Symbol(
                 xxx = CurrencyEntity.xxx,
                 name = CurrencyEntity.name,
                 base = CurrencyEntity.base,
                 check = CurrencyEntity.check
             ))
         }
-        return asd
+        return Symbols(asd)
     }
 
     override fun remoteToLocal(type: CurrencyResponse): List<CurrencyEntity> {
         val asd: ArrayList<CurrencyEntity> = ArrayList()
-        type.symbols.map { (xxx, name) -> asd.add(CurrencyEntity(
+        type.symbols.map { (xxx, name) ->
+            asd.add(CurrencyEntity(
                 xxx = xxx,
                 name = name,
                 base = xxx == "EUR",
@@ -45,16 +46,16 @@ class CurrencyMapper : BaseMapper<List<Symbols>, List<CurrencyEntity>, CurrencyR
         return asd
     }
 
-    override fun remoteToDomain(type: CurrencyResponse): List<Symbols> {
-        val asd: ArrayList<Symbols> = arrayListOf()
-        type.symbols.map { (xxx, name) ->
-            asd.add(Symbols(
-                xxx = xxx,
-                name = name,
-                base = xxx == "EUR",
-                check = xxx == "BTC" || xxx == "UAH" || xxx == "USD"
+    override fun remoteToDomain(type: CurrencyResponse): Symbols {
+        val asd: ArrayList<Symbols.Symbol> = arrayListOf()
+        type.symbols.map {
+            asd.add(Symbols.Symbol(
+                xxx = it.key,
+                name = it.value,
+                base = it.key == "EUR",
+                check = it.key == "BTC" || it.key == "UAH" || it.key == "USD"
             ))
         }
-        return asd
+        return Symbols(asd)
     }
 }

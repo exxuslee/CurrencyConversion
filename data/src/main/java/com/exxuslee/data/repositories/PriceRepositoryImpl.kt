@@ -56,7 +56,7 @@ class PriceRepositoryImpl(
         }
     }
 
-    override suspend fun getCurrencies(getFromRemote: Boolean): Result<List<Symbols>> {
+    override suspend fun getCurrencies(getFromRemote: Boolean): Result<Symbols> {
         val mapper = CurrencyMapper()
         return when {
             getFromRemote -> {

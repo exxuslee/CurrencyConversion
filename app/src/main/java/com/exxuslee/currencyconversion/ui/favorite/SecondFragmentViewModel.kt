@@ -20,7 +20,7 @@ import kotlinx.coroutines.withContext
 
 class SecondFragmentViewModel(private val currenciesUseCase: CurrenciesUseCase.Base) :
     ViewModel() {
-    private val _symbols = MutableLiveData<List<Symbols>?>()
+    private val _symbols = MutableLiveData<Symbols?>()
     val symbols = _symbols.asLiveData()
 
     private val _isLoading = MutableLiveData<Boolean>()
