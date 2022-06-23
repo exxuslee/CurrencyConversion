@@ -85,11 +85,13 @@ class PriceRepositoryImpl(
     }
 
     override suspend fun saveCurrencies(symbols: Symbols) {
-        CurrencyDao.saveCurrency(CurrencyEntity(
-            xxx = symbols.xxx,
-            name = symbols.name,
-            base = symbols.base,
-            check = symbols.check
-        ))
+        symbols.symbol.map {
+            CurrencyDao.saveCurrency(CurrencyEntity(
+                xxx = it.xxx,
+                name = it.name,
+                base = it.base,
+                check = it.check
+            ))
+        }
     }
 }

@@ -7,8 +7,12 @@ import java.io.Serializable
  */
 
 data class Symbols(
-    val xxx: String,
-    val name: String,
-    val base: Boolean,
-    val check: Boolean,
-): Serializable
+    val symbol: List<Symbol>,
+): Serializable {
+    data class Symbol(
+        val xxx: String,
+        val name: String,
+        val base: Boolean,
+        val check: Boolean,
+    )
+}
