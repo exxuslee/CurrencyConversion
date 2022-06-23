@@ -101,7 +101,7 @@ class SecondFragmentViewModel(private val currenciesUseCase: CurrenciesUseCase.B
         val bundle = Bundle()
         var base = "EUR"
         val check = ""
-        symbols.value?.forEach {
+        symbols.value?.symbol?.forEach {
             if (it.base) base = it.name
             if (it.check) check.plus(it.xxx+", ")
         }
