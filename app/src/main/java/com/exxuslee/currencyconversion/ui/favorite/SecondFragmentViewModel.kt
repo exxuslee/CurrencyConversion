@@ -20,7 +20,7 @@ import kotlinx.coroutines.withContext
 
 class SecondFragmentViewModel(private val currenciesUseCase: CurrenciesUseCase.Base) :
     ViewModel() {
-    private val _symbols = MutableLiveData<Symbols?>()
+    private val _symbols = MutableLiveData<List<Symbols>?>()
     val symbols = _symbols.asLiveData()
 
     private val _isLoading = MutableLiveData<Boolean>()
@@ -82,21 +82,32 @@ class SecondFragmentViewModel(private val currenciesUseCase: CurrenciesUseCase.B
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 currenciesUseCase.save(Symbols(
-                    symbols.value?.symbols ?: ArrayMap(),
-                    symbols.value?.favorite ?: ArrayMap(),
-                    symbols.value?.symbols?.valueAt(num) ?: "EUR"))
+                    xxx = _symbols.value?.get(num)?.xxx ?: "",
+                    name = _symbols.value?.get(num)?.name ?: "",
+                    check = true,
+                    base = false
+                ))
             }
         }
     }
 
     fun checkSelect(pos: Int, check: Boolean) {
-        _symbols.value?.favorite?.put(pos.toString(), check)
+        _symbols.postValue(
+
+        )
     }
 
     fun save(fragment: Fragment) {
         val bundle = Bundle()
-        bundle.putString("base", symbols.value?.base)
-        bundle.putSerializable("symbols", _symbols.value)
+        var base = "EUR"
+        val check = ""
+        symbols.value?.forEach {
+            if (it.base) base = it.name
+            if (it.check) check.plus(it.xxx+", ")
+        }
+
+        bundle.putString("base", base)
+        bundle.putSerializable("symbols", check)
         findNavController(fragment).navigate(R.id.FirstFragment, bundle)
     }
 }

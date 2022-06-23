@@ -1,6 +1,5 @@
 package com.exxuslee.domain.models
 
-import androidx.collection.ArrayMap
 import java.io.Serializable
 
 /**

@@ -53,7 +53,7 @@ class SecondFragment : Fragment() {
 
         viewModel.symbols.observe(viewLifecycleOwner) {
             if (it != null) {
-                secondAdapter.setData(it.symbols)
+                secondAdapter.setData(it)
             }
         }
 
