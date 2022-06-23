@@ -28,8 +28,10 @@ class App : Application() {
         FirebaseApp.initializeApp(this)
         startKoin {
             androidContext(this@App)
-            if (BuildConfig.DEBUG) androidLogger(Level.DEBUG)
+            if (BuildConfig.DEBUG) androidLogger(Level.ERROR)
             modules(appModules + domainModules + dataModules)
+//            koin.loadModules(appModules + domainModules + dataModules)
+//            koin.createRootScope()
         }
     }
 }
