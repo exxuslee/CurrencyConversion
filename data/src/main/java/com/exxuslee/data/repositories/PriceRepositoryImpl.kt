@@ -62,7 +62,6 @@ class PriceRepositoryImpl(
             getFromRemote -> {
                 val priceResult = PriceApi.getCurrency()
                 if (priceResult.isSuccessful) {
-                    //val mapperRemote = MapperRemote()
                     val remoteData = priceResult.body()
                     if (remoteData != null) {
                         mapper.remoteToLocal(remoteData).map { CurrencyDao.saveCurrency(it) }
