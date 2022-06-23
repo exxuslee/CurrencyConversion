@@ -2,10 +2,10 @@ package com.exxuslee.data.repositories
 
 import com.exxuslee.data.local.dao.CurrencyDao
 import com.exxuslee.data.local.dao.PriceDao
+import com.exxuslee.data.local.entities.CurrencyEntity
 import com.exxuslee.data.local.entities.PriceEntity
 import com.exxuslee.data.mapper.CurrencyMapper
-import com.exxuslee.data.mapper.PriceMapperLocal
-import com.exxuslee.data.mapper.PriceMapperRemote
+import com.exxuslee.data.mapper.PriceMapper
 import com.exxuslee.data.remote.api.PriceApiService
 import com.exxuslee.domain.models.Price
 import com.exxuslee.domain.models.Symbols
@@ -23,11 +23,11 @@ class PriceRepositoryImpl(
         symbols: String,
         getFromRemote: Boolean,
     ): Result<Price> {
+        val mapper = PriceMapper()
         return when {
             getFromRemote -> {
                 val priceResult = PriceApi.getPrice(base = base, symbols = symbols)
                 if (priceResult.isSuccessful) {
-                    val mapperRemote = PriceMapperRemote()
                     val remoteData = priceResult.body()
                     if (remoteData != null) {
                         PriceDao.savePrice(
@@ -37,7 +37,7 @@ class PriceRepositoryImpl(
                                 rates = remoteData.rates
                             )
                         )
-                        Result.Success(mapperRemote.transform(remoteData))
+                        Result.Success(mapper.remoteToDomain(remoteData))
                     } else {
                         Result.Success(null)
                     }
@@ -50,14 +50,14 @@ class PriceRepositoryImpl(
                 if (localData == null) {
                     Result.Success(null)
                 } else {
-                    val mapperLocal = PriceMapperLocal()
-                    Result.Success(mapperLocal.transform(localData))
+                    Result.Success(mapper.localToDomain(localData))
                 }
             }
         }
     }
 
     override suspend fun getCurrencies(getFromRemote: Boolean): Result<List<Symbols>> {
+        val mapper = CurrencyMapper()
         return when {
             getFromRemote -> {
                 val priceResult = PriceApi.getCurrency()
@@ -65,10 +65,8 @@ class PriceRepositoryImpl(
                     //val mapperRemote = MapperRemote()
                     val remoteData = priceResult.body()
                     if (remoteData != null) {
-                        CurrencyDao.saveCurrency(
-                            mapperRemote.transformToRepository(remoteData)
-                        )
-                        Result.Success(mapperRemote.transform(remoteData))
+                        mapper.remoteToLocal(remoteData).map { CurrencyDao.saveCurrency(it) }
+                        Result.Success(mapper.remoteToDomain(remoteData))
                     } else {
                         Result.Success(null)
                     }
@@ -81,15 +79,18 @@ class PriceRepositoryImpl(
                 if (localData == null) {
                     Result.Success(null)
                 } else {
-                    val currencyMapper = CurrencyMapper()
-                    Result.Success(currencyMapper.transform(localData))
+                    Result.Success(mapper.localToDomain(localData))
                 }
             }
         }
     }
 
     override suspend fun saveCurrencies(symbols: Symbols) {
-        val currencyMapper = CurrencyMapper()
-        CurrencyDao.saveCurrency(currencyMapper.transformToRepository(symbols))
+        CurrencyDao.saveCurrency(CurrencyEntity(
+            xxx = symbols.xxx,
+            name = symbols.name,
+            base = symbols.base,
+            check = symbols.check
+        ))
     }
 }
