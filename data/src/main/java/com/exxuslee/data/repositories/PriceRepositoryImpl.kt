@@ -1,14 +1,11 @@
 package com.exxuslee.data.repositories
 
-import androidx.collection.ArrayMap
 import com.exxuslee.data.local.dao.CurrencyDao
 import com.exxuslee.data.local.dao.PriceDao
 import com.exxuslee.data.local.entities.CurrencyEntity
 import com.exxuslee.data.local.entities.PriceEntity
-import com.exxuslee.data.mapper.CurrencyMapperLocal
-import com.exxuslee.data.mapper.CurrencyMapperRemote
-import com.exxuslee.data.mapper.PriceMapperLocal
-import com.exxuslee.data.mapper.PriceMapperRemote
+import com.exxuslee.data.mapper.CurrencyMapper
+import com.exxuslee.data.mapper.PriceMapper
 import com.exxuslee.data.remote.api.PriceApiService
 import com.exxuslee.domain.models.Price
 import com.exxuslee.domain.models.Symbols
@@ -26,11 +23,11 @@ class PriceRepositoryImpl(
         symbols: String,
         getFromRemote: Boolean,
     ): Result<Price> {
+        val mapper = PriceMapper()
         return when {
             getFromRemote -> {
                 val priceResult = PriceApi.getPrice(base = base, symbols = symbols)
                 if (priceResult.isSuccessful) {
-                    val mapperRemote = PriceMapperRemote()
                     val remoteData = priceResult.body()
                     if (remoteData != null) {
                         PriceDao.savePrice(
@@ -40,7 +37,7 @@ class PriceRepositoryImpl(
                                 rates = remoteData.rates
                             )
                         )
-                        Result.Success(mapperRemote.transform(remoteData))
+                        Result.Success(mapper.remoteToDomain(remoteData))
                     } else {
                         Result.Success(null)
                     }
@@ -53,29 +50,22 @@ class PriceRepositoryImpl(
                 if (localData == null) {
                     Result.Success(null)
                 } else {
-                    val mapperLocal = PriceMapperLocal()
-                    Result.Success(mapperLocal.transform(localData))
+                    Result.Success(mapper.localToDomain(localData))
                 }
             }
         }
     }
 
     override suspend fun getCurrencies(getFromRemote: Boolean): Result<Symbols> {
+        val mapper = CurrencyMapper()
         return when {
             getFromRemote -> {
                 val priceResult = PriceApi.getCurrency()
                 if (priceResult.isSuccessful) {
-                    val mapperRemote = CurrencyMapperRemote()
                     val remoteData = priceResult.body()
                     if (remoteData != null) {
-                        CurrencyDao.saveCurrency(
-                            CurrencyEntity(
-                                symbols = remoteData.symbols,
-                                favorite = ArrayMap<String, Boolean>(),
-                                base = ""
-                            )
-                        )
-                        Result.Success(mapperRemote.transform(remoteData))
+                        mapper.remoteToLocal(remoteData).map { CurrencyDao.saveCurrency(it) }
+                        Result.Success(mapper.remoteToDomain(remoteData))
                     } else {
                         Result.Success(null)
                     }
@@ -85,18 +75,23 @@ class PriceRepositoryImpl(
             }
             else -> {
                 val localData = CurrencyDao.getCurrency()
-                if (localData == null) {
+                if (localData == null || localData.isEmpty()) {
                     Result.Success(null)
                 } else {
-                    val mapperLocal = CurrencyMapperLocal()
-                    Result.Success(mapperLocal.transform(localData))
+                    Result.Success(mapper.localToDomain(localData))
                 }
             }
         }
     }
 
     override suspend fun saveCurrencies(symbols: Symbols) {
-        val mapperLocal = CurrencyMapperLocal()
-        CurrencyDao.saveCurrency(mapperLocal.transformToRepository(symbols))
+        symbols.symbol.map {
+            CurrencyDao.saveCurrency(CurrencyEntity(
+                xxx = it.xxx,
+                name = it.name,
+                base = it.base,
+                check = it.check
+            ))
+        }
     }
 }

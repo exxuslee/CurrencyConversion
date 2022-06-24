@@ -1,6 +1,5 @@
 package com.exxuslee.domain.models
 
-import androidx.collection.ArrayMap
 import java.io.Serializable
 
 /**
@@ -8,7 +7,12 @@ import java.io.Serializable
  */
 
 data class Symbols(
-    val symbols: ArrayMap<String, String>,
-    val favorite: ArrayMap<String, Boolean>,
-    val base: String,
-): Serializable
+    val symbol: List<Symbol>,
+): Serializable {
+    data class Symbol(
+        val xxx: String,
+        val name: String,
+        var base: Boolean,
+        var check: Boolean,
+    )
+}

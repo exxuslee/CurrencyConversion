@@ -1,19 +1,11 @@
 package com.exxuslee.data.remote.response
 
 import androidx.collection.ArrayMap
-import com.exxuslee.data.local.entities.CurrencyEntity
+
+/**
+ * {"success": true, "symbols": {"AED": "United Arab Emirates Dirham",
+ */
 
 data class CurrencyResponse(
     val symbols: ArrayMap<String, String>,
 )
-
-
-/**
- * This helps to convert [CurrencyResponse] to [CurrencyEntity]
- */
-fun CurrencyResponse.toEntity() =
-    CurrencyEntity(
-        symbols = symbols,
-        favorite = ArrayMap<String, Boolean>(),
-        base = ""
-    )

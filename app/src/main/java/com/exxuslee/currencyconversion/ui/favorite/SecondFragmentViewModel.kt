@@ -73,30 +73,37 @@ class SecondFragmentViewModel(private val currenciesUseCase: CurrenciesUseCase.B
     }
 
     fun radioSelect(num: Int) {
-        _symbols.postValue(Symbols(
-            _symbols.value?.symbols ?: ArrayMap(),
-            _symbols.value?.favorite ?: ArrayMap(),
-            symbols.value?.symbols?.valueAt(num) ?: "EUR"))
-        Log.d(FirstFragment.TAG, "position $num")
+        val asd: List<Symbols.Symbol> = symbols.value?.symbol!!
+        asd.map { it.base = false }
+        asd[num].base = true
+        _symbols.postValue(Symbols(asd))
 
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
-                currenciesUseCase.save(Symbols(
-                    symbols.value?.symbols ?: ArrayMap(),
-                    symbols.value?.favorite ?: ArrayMap(),
-                    symbols.value?.symbols?.valueAt(num) ?: "EUR"))
+                symbols.value?.let {
+                    currenciesUseCase.save(it)
+                }
             }
         }
     }
 
     fun checkSelect(pos: Int, check: Boolean) {
-        _symbols.value?.favorite?.put(pos.toString(), check)
+        val asd: List<Symbols.Symbol> = symbols.value?.symbol!!
+        asd[pos].check = check
+        _symbols.postValue(Symbols(asd))
     }
 
     fun save(fragment: Fragment) {
         val bundle = Bundle()
-        bundle.putString("base", symbols.value?.base)
-        bundle.putSerializable("symbols", _symbols.value)
+        var base = "EUR"
+        val check = ""
+        symbols.value?.symbol?.forEach {
+            if (it.base) base = it.name
+            if (it.check) check.plus(it.xxx + ", ")
+        }
+
+        bundle.putString("base", base)
+        bundle.putSerializable("symbols", check)
         findNavController(fragment).navigate(R.id.FirstFragment, bundle)
     }
 }

@@ -2,12 +2,11 @@ package com.exxuslee.currencyconversion
 
 import android.app.Application
 import com.exxuslee.currencyconversion.di.presentationModule
+import com.google.firebase.FirebaseApp
 import com.exxuslee.data.di.databaseModule
 import com.exxuslee.data.di.networkingModule
 import com.exxuslee.data.di.repositoryModule
 import com.exxuslee.domain.di.interactionModule
-import com.google.firebase.FirebaseApp
-import org.koin.android.BuildConfig
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
@@ -29,8 +28,10 @@ class App : Application() {
         FirebaseApp.initializeApp(this)
         startKoin {
             androidContext(this@App)
-            if (BuildConfig.DEBUG) androidLogger(Level.DEBUG)
+            if (BuildConfig.DEBUG) androidLogger(Level.ERROR)
             modules(appModules + domainModules + dataModules)
+//            koin.loadModules(appModules + domainModules + dataModules)
+//            koin.createRootScope()
         }
     }
 }
