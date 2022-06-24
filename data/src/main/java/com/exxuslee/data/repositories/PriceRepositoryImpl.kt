@@ -75,7 +75,7 @@ class PriceRepositoryImpl(
             }
             else -> {
                 val localData = CurrencyDao.getCurrency()
-                if (localData == null) {
+                if (localData == null || localData.isEmpty()) {
                     Result.Success(null)
                 } else {
                     Result.Success(mapper.localToDomain(localData))
