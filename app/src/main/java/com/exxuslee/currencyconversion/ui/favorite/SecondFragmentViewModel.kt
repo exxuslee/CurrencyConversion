@@ -81,7 +81,7 @@ class SecondFragmentViewModel(private val currenciesUseCase: CurrenciesUseCase.B
         viewModelScope.launch {
             withContext(Dispatchers.IO) {
                 symbols.value?.let {
-                    currenciesUseCase.save(it)
+                    currenciesUseCase.saveAll(it)
                 }
             }
         }
