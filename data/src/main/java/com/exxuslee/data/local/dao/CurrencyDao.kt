@@ -10,11 +10,11 @@ import com.exxuslee.data.local.entities.CurrencyEntity
 @Dao
 interface CurrencyDao {
 
-    @Update(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun updateCurrency(Currency: CurrencyEntity)
+    @Query("UPDATE currency_table SET base = :base, `check` = :check WHERE xxx = :xxx")
+    fun updateCurrency(xxx: String, base: Boolean, check: Boolean)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertCurrency(Currency: CurrencyEntity)
+    suspend fun insertCurrency(currency: CurrencyEntity)
 
     @Query("SELECT * FROM currency_table")
     suspend fun getCurrency(): List<CurrencyEntity>?
