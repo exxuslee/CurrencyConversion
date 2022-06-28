@@ -54,7 +54,7 @@ class FirstFragment : Fragment() {
         }
 
         viewModelFirst.price.observe(viewLifecycleOwner) { Price ->
-            //           binding.textBase.text = Price?.date
+            binding.textDate.text = Price?.date
             firstAdapter.updateAdapter(Price)
         }
 
