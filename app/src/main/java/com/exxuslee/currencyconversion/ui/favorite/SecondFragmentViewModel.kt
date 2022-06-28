@@ -76,11 +76,7 @@ class SecondFragmentViewModel(private val currenciesUseCase: CurrenciesUseCase.B
         _symbols.postValue(Symbols(asd))
 
         viewModelScope.launch {
-            withContext(Dispatchers.IO) {
-                symbols.value?.let {
-                    currenciesUseCase.saveAll(it)
-                }
-            }
+            withContext(Dispatchers.IO) { symbols.value?.let { currenciesUseCase.saveAll(it) } }
         }
     }
 
@@ -88,18 +84,24 @@ class SecondFragmentViewModel(private val currenciesUseCase: CurrenciesUseCase.B
         val asd: List<Symbols.Symbol> = symbols.value?.symbol!!
         asd[pos].check = check
         _symbols.postValue(Symbols(asd))
+        viewModelScope.launch {
+            withContext(Dispatchers.IO) {
+                symbols.value?.symbol!![pos].let { currenciesUseCase.save(it) }
+            }
+        }
     }
 
     fun save(fragment: Fragment) {
         val bundle = Bundle()
         var base = "EUR"
-        val check = ""
-        symbols.value?.symbol?.forEach {
-            if (it.base) base = it.name
-            if (it.check) check.plus(it.xxx + ", ")
-        }
+        val check = "BTC"
+//        symbols.value?.symbol?.forEach {
+//            if (it.base) base = it.name
+//            if (it.check) check.plus(it.xxx + ", ")
+//        }
         bundle.putString("base", base)
-        bundle.putSerializable("symbols", check)
+        bundle.putString("check", check)
+//        bundle.putSerializable("symbols", check)
         findNavController(fragment).navigate(R.id.FirstFragment, bundle)
     }
 }

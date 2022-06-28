@@ -33,7 +33,7 @@ class SecondAdapter : RecyclerView.Adapter<SecondAdapter.ViewHolder>() {
         holder.binding.apply {
             xxxTextView.text = radioList[position].xxx
             currencyTextView.text = radioList[position].name
-            radioButton.isChecked = lastSelectedPosition == position
+            radioButton.isChecked = radioList[position].base
             radioButton.setOnClickListener {
                 if (lastSelectedPosition != holder.adapterPosition) {
                     lastSelectedPosition = holder.adapterPosition
@@ -41,6 +41,7 @@ class SecondAdapter : RecyclerView.Adapter<SecondAdapter.ViewHolder>() {
                     notifyDataSetChanged()
                 }
             }
+            compoundButton.isChecked = radioList[position].check
             compoundButton.setOnClickListener {
                 onPriceClickListener?.invoke(position, compoundButton.isChecked)
             }

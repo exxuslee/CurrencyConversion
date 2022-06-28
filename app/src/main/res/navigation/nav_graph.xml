@@ -18,8 +18,9 @@
             android:name="base"
             app:argType="string"
             android:defaultValue="nav Hello" />
-        <argument android:name="favoriteName"
-            app:argType="string[]" />
+        <argument android:name="check"
+            app:argType="string"
+            android:defaultValue="BTC" />
         <argument
             android:name="favoriteCheck"
             app:argType="boolean[]" />
