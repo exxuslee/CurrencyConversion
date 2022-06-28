@@ -7,9 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import com.exxuslee.currencyconversion.databinding.FragmentFirstBinding
-import com.exxuslee.currencyconversion.ui.favorite.SecondFragmentViewModel
 import com.exxuslee.currencyconversion.utils.showIf
-import com.exxuslee.domain.models.Symbols
 import com.google.android.material.snackbar.Snackbar
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -28,7 +26,10 @@ class FirstFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?,
     ): View {
 
-        viewModelFirst.localPrice()
+        viewModelFirst.localPrice(
+            arguments?.getString("base")?:"EUR",
+            arguments?.getString("check")?:"BTC"
+        )
         _binding = FragmentFirstBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -53,12 +54,11 @@ class FirstFragment : Fragment() {
         }
 
         viewModelFirst.price.observe(viewLifecycleOwner) { Price ->
- //           binding.textBase.text = Price?.date
+            //           binding.textBase.text = Price?.date
             firstAdapter.updateAdapter(Price)
         }
 
-        binding.textBase.text = arguments?.getString("base")
-        binding.textBase.text = arguments?.getSerializable("symbols").toString()
+        binding.textBase.text = arguments?.getString("name")
 
         firstAdapter.onPriceClickListener = {
             Log.d(TAG, "position $it")
@@ -71,7 +71,7 @@ class FirstFragment : Fragment() {
         _binding = null
     }
 
-    companion object{
+    companion object {
         const val TAG = "price"
     }
 }

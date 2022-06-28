@@ -17,15 +17,17 @@
         <argument
             android:name="base"
             app:argType="string"
-            android:defaultValue="nav Hello" />
-        <argument android:name="favoriteName"
-            app:argType="string[]" />
-        <argument
-            android:name="favoriteCheck"
-            app:argType="boolean[]" />
+            android:defaultValue="EUR" />
+        <argument android:name="check"
+            app:argType="string"
+            android:defaultValue="BTC" />
         <argument
             android:name="symbols"
             app:argType="com.exxuslee.domain.models.Symbols" />
+        <argument
+            android:name="name"
+            app:argType="string"
+            android:defaultValue="Euro" />
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"

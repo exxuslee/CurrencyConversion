@@ -1,9 +1,6 @@
 package com.exxuslee.data.local.dao
 
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
 import com.exxuslee.data.local.entities.CurrencyEntity
 
 /**
@@ -13,8 +10,11 @@ import com.exxuslee.data.local.entities.CurrencyEntity
 @Dao
 interface CurrencyDao {
 
+    @Query("UPDATE currency_table SET base = :base, `check` = :check WHERE xxx = :xxx")
+    fun updateCurrency(xxx: String, base: Boolean, check: Boolean)
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun saveCurrency(Currency: CurrencyEntity)
+    suspend fun insertCurrency(currency: CurrencyEntity)
 
     @Query("SELECT * FROM currency_table")
     suspend fun getCurrency(): List<CurrencyEntity>?

@@ -64,7 +64,9 @@ class PriceRepositoryImpl(
                 if (priceResult.isSuccessful) {
                     val remoteData = priceResult.body()
                     if (remoteData != null) {
-                        mapper.remoteToLocal(remoteData).map { CurrencyDao.saveCurrency(it) }
+                        mapper.remoteToLocal(remoteData).map {
+                            CurrencyDao.insertCurrency(it)
+                        }
                         Result.Success(mapper.remoteToDomain(remoteData))
                     } else {
                         Result.Success(null)
@@ -84,14 +86,15 @@ class PriceRepositoryImpl(
         }
     }
 
-    override suspend fun saveCurrencies(symbols: Symbols) {
-        symbols.symbol.map {
-            CurrencyDao.saveCurrency(CurrencyEntity(
-                xxx = it.xxx,
-                name = it.name,
-                base = it.base,
-                check = it.check
-            ))
-        }
+    override suspend fun saveCurrencies(symbol: Symbols.Symbol) {
+        CurrencyDao.updateCurrency(
+            xxx = symbol.xxx,
+            base = symbol.base,
+            check = symbol.check
+        )
+    }
+
+    override suspend fun saveAllCurrencies(symbols: Symbols) {
+        symbols.symbol.map { saveCurrencies(it) }
     }
 }
