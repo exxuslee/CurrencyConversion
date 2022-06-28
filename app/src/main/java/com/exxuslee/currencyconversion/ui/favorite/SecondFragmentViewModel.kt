@@ -94,13 +94,18 @@ class SecondFragmentViewModel(private val currenciesUseCase: CurrenciesUseCase.B
     fun save(fragment: Fragment) {
         val bundle = Bundle()
         var base = "EUR"
-        val check = "BTC"
-//        symbols.value?.symbol?.forEach {
-//            if (it.base) base = it.name
-//            if (it.check) check.plus(it.xxx + ", ")
-//        }
+        var name = "Euro"
+        val check = StringBuilder()
+        symbols.value?.symbol?.forEach {
+            if (it.base) {
+                base = it.xxx
+                name = it.name
+            }
+            if (it.check) check.append(it.xxx + ",")
+        }
+        bundle.putString("name", name)
         bundle.putString("base", base)
-        bundle.putString("check", check)
+        bundle.putString("check", check.toString())
 //        bundle.putSerializable("symbols", check)
         findNavController(fragment).navigate(R.id.FirstFragment, bundle)
     }
