@@ -7,4 +7,5 @@
     <color name="primaryDarkColor">#004ba0</color>
     <color name="primaryTextColor">#ffffff</color>
     <color name="ic_launcher_background">#df6e57</color>
+    <color name="ic_launcher_foreground">#df6e57</color>
 </resources>

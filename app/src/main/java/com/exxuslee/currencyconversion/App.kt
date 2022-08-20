@@ -12,9 +12,6 @@ import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
 import org.koin.core.logger.Level
 
-/**
- * Created by Mayokun Adeniyi on 23/07/2020.
- */
 
 class App : Application() {
     companion object {
@@ -30,8 +27,6 @@ class App : Application() {
             androidContext(this@App)
             if (BuildConfig.DEBUG) androidLogger(Level.ERROR)
             modules(appModules + domainModules + dataModules)
-//            koin.loadModules(appModules + domainModules + dataModules)
-//            koin.createRootScope()
         }
     }
 }
