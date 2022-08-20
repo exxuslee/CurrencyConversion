@@ -34,7 +34,7 @@
         android:layout_alignParentEnd="true"
         android:background="#000000"
         android:gravity="center"
-        android:padding="5dip"
+        android:padding="15dp"
         android:text="@string/btnApply"
         android:textColor="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
