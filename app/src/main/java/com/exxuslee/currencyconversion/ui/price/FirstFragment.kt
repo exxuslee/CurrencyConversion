@@ -37,7 +37,7 @@ class FirstFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        firstAdapter = FirstAdapter()
+        val firstAdapter = FirstAdapter()
         binding.recyclerView.adapter = firstAdapter
 
         viewModelFirst.isLoading.observe(viewLifecycleOwner) { state ->
